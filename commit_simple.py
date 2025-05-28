@@ -52,7 +52,7 @@ try:
         
         # Configure authentication URL
         auth_url = f"https://{os.getenv('login')}:{os.getenv('github_token')}@github.com/ernaud-breissie/aliceismissing.git"
-        auth_url.replace("\n","")
+        auth_url = auth_url.replace("\n","")
         masked_url = auth_url.replace(os.getenv('github_token'), '****')
         print(f"Setting up authenticated URL: {masked_url}")
         run_cmd(['git', 'remote', 'set-url', 'origin', auth_url])
