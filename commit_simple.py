@@ -6,13 +6,14 @@ from datetime import datetime
 from dotenv import load_dotenv
 
 def run_cmd(cmd, check=False):
-    """Run a command and ignore errors if check is False."""
+    """Run a command and return (success, output)."""
     try:
         result = subprocess.run(cmd, check=check, capture_output=True, text=True)
-        return result.stdout
-    except subprocess.CalledProcessError:
+        return True, result.stdout
+    except subprocess.CalledProcessError as e:
         if check:
             raise
+        return False, e.stderr
 
 # Load environment variables
 load_dotenv()
@@ -23,7 +24,7 @@ try:
     run_cmd(['git', 'config', '--local', 'user.email', os.getenv('email')], check=True)
 
     # Save requirements
-    requirements = run_cmd(['pip', 'freeze'], check=True)
+    success, requirements = run_cmd(['pip', 'freeze'], check=True)
     with open('request.txt', 'w') as f:
         f.write(requirements)
 
@@ -39,11 +40,22 @@ try:
 
     # Create commit with timestamp
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    commit_result = run_cmd(['git', 'commit', '-m', f'wip {branch} Updated: {current_time}'])
+    commit_success, commit_output = run_cmd(['git', 'commit', '-m', f'wip {branch} Updated: {current_time}'])
 
-    # Push only if there were changes to commit
-    if "nothing to commit" not in commit_result:
+    # Push only if commit succeeded and there were changes
+    if commit_success and "nothing to commit" not in commit_output:
+        # Store original URL
+        success, original_url = run_cmd(['git', 'remote', 'get-url', 'origin'])
+        
+        # Configure authentication URL
+        auth_url = f"https://{os.getenv('login')}:{os.getenv('github_token')}@github.com/ernaud-breissie/aliceismissing.git"
+        run_cmd(['git', 'remote', 'set-url', 'origin', auth_url])
+        
+        # Push changes
         run_cmd(['git', 'push', '--set-upstream', 'origin', branch], check=True)
+        
+        # Restore original URL
+        run_cmd(['git', 'remote', 'set-url', 'origin', original_url])
         print("Changes committed and pushed successfully")
     else:
         print("No changes to commit")
