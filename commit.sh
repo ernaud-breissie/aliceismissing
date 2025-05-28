@@ -19,6 +19,24 @@ debug_url() {
     echo "${url//$github_token/****}" | sed 's/:[^:@]*@/:****@/'
 }
 
+# URL encode function
+urlencode() {
+    local string="${1}"
+    local strlen=${#string}
+    local encoded=""
+    local pos c o
+
+    for (( pos=0 ; pos<strlen ; pos++ )); do
+        c=${string:$pos:1}
+        case "$c" in
+            [-_.~a-zA-Z0-9] ) o="${c}" ;;
+            * )               o=$(printf '%%%02X' "'$c") ;;
+        esac
+        encoded+="${o}"
+    done
+    echo "${encoded}"
+}
+
 # Store original remote URL
 original_url=$(git remote get-url origin)
 echo "DEBUG: Original remote URL: $(debug_url "$original_url")"
@@ -34,8 +52,13 @@ elif [[ $original_url == *"github.com"* ]]; then
     echo "DEBUG: Extracted repo path from HTTPS URL: $repo_path"
 fi
 
+# Encode authentication parameters
+encoded_login=$(urlencode "$login")
+encoded_token=$(urlencode "$github_token")
+echo "DEBUG: Parameters encoded for URL"
+
 # Configure remote URL with token authentication
-auth_url="https://$login:$github_token@github.com/$repo_path"
+auth_url="https://$encoded_login:$encoded_token@github.com/$repo_path"
 echo "DEBUG: Setting authenticated URL: $(debug_url "$auth_url")"
 git remote set-url origin "$auth_url"
 
