@@ -6,6 +6,7 @@ import shutil
 from datetime import datetime
 from dotenv import load_dotenv
 import re
+import pty
 
 def mask_sensitive_data(content):
     """Mask sensitive data in content."""
@@ -200,58 +201,35 @@ try:
         # Push changes
         print(f"\n⬆️  Push vers la branche {branch}...")
         try:
-            # On exécute le push en capturant la sortie en temps réel
-            process = subprocess.Popen(
-                ['git', 'push', '--set-upstream', 'origin', branch],
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                text=True,
-                bufsize=1,
-                universal_newlines=True
-            )
+            # Utiliser pty pour afficher la sortie comme un vrai terminal
+            def read(fd):
+                while True:
+                    try:
+                        output = os.read(fd, 1024)
+                        if not output:
+                            break
+                        print(output.decode(errors='replace'), end='')
+                    except OSError:
+                        break
             
-            # Capture la sortie en temps réel
-            stdout_output = []
-            stderr_output = []
-            
-            # Lire stdout et stderr en temps réel
-            while True:
-                stdout_line = process.stdout.readline()
-                stderr_line = process.stderr.readline()
-                
-                if stdout_line:
-                    print(stdout_line, end='')
-                    stdout_output.append(stdout_line)
-                if stderr_line:
-                    print(stderr_line, end='')
-                    stderr_output.append(stderr_line)
-                
-                # Vérifier si le processus est terminé
-                if process.poll() is not None:
-                    # Lire les dernières lignes
-                    for line in process.stdout:
-                        print(line, end='')
-                        stdout_output.append(line)
-                    for line in process.stderr:
-                        print(line, end='')
-                        stderr_output.append(line)
-                    break
-            
-            success = process.returncode == 0
+            pid, fd = pty.fork()
+            if pid == 0:
+                # Enfant : exécute la commande
+                os.execvp('git', ['git', 'push', '--set-upstream', 'origin', branch])
+            else:
+                # Parent : lit la sortie
+                read(fd)
+                _, status = os.waitpid(pid, 0)
+                success = os.WIFEXITED(status) and os.WEXITSTATUS(status) == 0
             
             if not success:
                 print("\n❌ Échec du push - Vérifiez les messages d'erreur ci-dessus")
-                stderr = ''.join(stderr_output)
-                if "GH013" in stderr or "Repository rule violations" in stderr:
-                    print("\n🔍 Actions recommandées pour résoudre l'erreur GH013:")
-                    print("   1. Annuler le dernier commit:")
-                    print("      git reset --hard HEAD~1")
-                    print("   2. Vérifier les fichiers pour des tokens ou secrets")
-                    print("   3. Relancer le script")
-                else:
-                    print("   Si vous voyez des erreurs concernant des secrets ou tokens,")
-                    print("   utilisez 'git reset --hard HEAD~1' pour annuler le dernier commit")
-                    print("   puis relancez le script")
+                # Impossible de capturer stderr pour analyse GH013 ici, mais on garde les instructions
+                print("\n🔍 Si vous voyez une erreur GH013 :")
+                print("   1. Annuler le dernier commit:")
+                print("      git reset --hard HEAD~1")
+                print("   2. Vérifier les fichiers pour des tokens ou secrets")
+                print("   3. Relancer le script")
             else:
                 print("✅ Push réussi")
         except Exception as e:
