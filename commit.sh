@@ -19,6 +19,12 @@ debug_url() {
     echo "${url//$github_token/****}" | sed 's/:[^:@]*@/:****@/'
 }
 
+# Clean GitHub token (remove prefix if present)
+clean_token() {
+    local token=$1
+    echo "${token#github_pat_}"
+}
+
 # Store original remote URL
 original_url=$(git remote get-url origin)
 echo "DEBUG: Original remote URL: $(debug_url "$original_url")"
@@ -34,8 +40,12 @@ elif [[ $original_url == *"github.com"* ]]; then
     echo "DEBUG: Extracted repo path from HTTPS URL: $repo_path"
 fi
 
+# Clean and prepare the token
+clean_github_token=$(clean_token "$github_token")
+echo "DEBUG: Token cleaned (length: ${#clean_github_token} chars)"
+
 # Configure remote URL with token authentication
-auth_url="https://$login:$github_token@github.com/$repo_path"
+auth_url="https://$login:$clean_github_token@github.com/$repo_path"
 echo "DEBUG: Setting authenticated URL: $(debug_url "$auth_url")"
 git remote set-url origin "$auth_url"
 
