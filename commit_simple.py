@@ -200,11 +200,21 @@ try:
         # Push changes
         print(f"\n⬆️  Push vers la branche {branch}...")
         try:
-            # On exécute le push sans capture de sortie pour voir les erreurs en temps réel
-            push_process = subprocess.run(['git', 'push', '--set-upstream', 'origin', branch], 
-                                        check=False, text=True)
+            # On exécute le push en capturant la sortie pour tout afficher
+            push_process = subprocess.run(
+                ['git', 'push', '--set-upstream', 'origin', branch],
+                check=False, text=True, capture_output=True
+            )
             success = push_process.returncode == 0
-            
+
+            # Afficher toute la sortie du push
+            if push_process.stdout:
+                print("\n--- Sortie standard du push ---")
+                print(push_process.stdout)
+            if push_process.stderr:
+                print("\n--- Sortie d'erreur du push ---")
+                print(push_process.stderr)
+
             if not success:
                 print("\n❌ Échec du push - Vérifiez les messages d'erreur ci-dessus")
                 stderr = getattr(push_process, 'stderr', None)
