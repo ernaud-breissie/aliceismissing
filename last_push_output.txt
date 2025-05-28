@@ -1,15 +1,3 @@
 Depuis https://github.com/ernaud-breissie/aliceismissing
  * branch            main       -> FETCH_HEAD
-[33mastuce: Vous avez des branches divergentes et vous devez spécifier comment[m
-[33mastuce: les réconcilier. Vous pouvez le faire en lançant une des[m
-[33mastuce: commandes suivantes avant votre prochain tirage :[m
-[33mastuce: [m
-[33mastuce:   git config pull.rebase false  # fusion[m
-[33mastuce:   git config pull.rebase true   # rebasage[m
-[33mastuce:   git config pull.ff only       # avance rapide seulement[m
-[33mastuce: [m
-[33mastuce: Vous pouvez remplacer "git config" par "git config --global" pour que[m
-[33mastuce: ce soit l'option par défaut pour tous les dépôts. Vous pouvez aussi[m
-[33mastuce: passer --rebase, --no-rebase ou --ff-only sur la ligne de commande pour[m
-[33mastuce: remplacer à l'invocation la valeur par défaut configurée.[m
-fatal: Besoin de spécifier comment réconcilier des branches divergentes.
+fatal: refus de fusionner des historiques sans relation
