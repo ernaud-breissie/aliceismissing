@@ -167,13 +167,6 @@ try:
     branch = subprocess.run(['git', 'symbolic-ref', 'HEAD'], 
                           capture_output=True, text=True, check=True).stdout.strip().split('/')[-1]
 
-    # Try to pull, ignore if branch doesn't exist
-    print(f"\n⬇️  Mise à jour depuis la branche {branch}...")
-    run_cmd(['git', 'pull', 'origin', branch])
-
-    # Add all changes
-    print("\n➕ Ajout des modifications...")
-    run_cmd(['git', 'add', '.'], check=True)
 
     # Configuration git
     print("\n⚙️  Configuration du dépôt...")
@@ -197,6 +190,15 @@ try:
     backup_path = backup_git_config()
     with open('.git/config', 'w') as f:
         f.write(config)
+
+        # Try to pull, ignore if branch doesn't exist
+    print(f"\n⬇️  Mise à jour depuis la branche {branch}...")
+    run_cmd(['git', 'pull', 'origin', branch])
+
+    # Add all changes
+    print("\n➕ Ajout des modifications...")
+    run_cmd(['git', 'add', '.'], check=True)
+
 
     # Create commit with timestamp
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
