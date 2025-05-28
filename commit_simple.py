@@ -125,6 +125,10 @@ def check_env_variables():
 # Load environment variables
 load_dotenv()
 
+# Effacer le fichier de sortie push au début
+with open('last_push_output.txt', 'w') as f:
+    pass
+
 try:
     # Vérifier les variables d'environnement requises
     if not check_env_variables():
@@ -201,30 +205,33 @@ try:
         # Push changes
         print(f"\n⬆️  Push vers la branche {branch}...")
         try:
-            # Utiliser pty pour afficher la sortie comme un vrai terminal
-            def read(fd):
-                while True:
-                    try:
-                        output = os.read(fd, 1024)
-                        if not output:
+            # Utiliser pty pour afficher la sortie comme un vrai terminal ET l'écrire dans un fichier
+            def read_and_log(fd, log_path):
+                with open(log_path, 'a') as logf:
+                    while True:
+                        try:
+                            output = os.read(fd, 1024)
+                            if not output:
+                                break
+                            decoded = output.decode(errors='replace')
+                            print(decoded, end='')
+                            logf.write(decoded)
+                            logf.flush()
+                        except OSError:
                             break
-                        print(output.decode(errors='replace'), end='')
-                    except OSError:
-                        break
             
             pid, fd = pty.fork()
             if pid == 0:
                 # Enfant : exécute la commande
                 os.execvp('git', ['git', 'push', '--set-upstream', 'origin', branch])
             else:
-                # Parent : lit la sortie
-                read(fd)
+                # Parent : lit la sortie et log
+                read_and_log(fd, 'last_push_output.txt')
                 _, status = os.waitpid(pid, 0)
                 success = os.WIFEXITED(status) and os.WEXITSTATUS(status) == 0
             
             if not success:
                 print("\n❌ Échec du push - Vérifiez les messages d'erreur ci-dessus")
-                # Impossible de capturer stderr pour analyse GH013 ici, mais on garde les instructions
                 print("\n🔍 Si vous voyez une erreur GH013 :")
                 print("   1. Annuler le dernier commit:")
                 print("      git reset --hard HEAD~1")
@@ -245,6 +252,11 @@ try:
 
     # Restore git configuration
     restore_git_config(backup_path)
+
+    # Afficher le contenu du fichier de log push à la fin
+    print("\n===== Récapitulatif complet du push (last_push_output.txt) =====\n")
+    with open('last_push_output.txt', 'r') as f:
+        print(f.read())
 
 except Exception as e:
     print(f"\n❌ Erreur critique: {str(e)}")

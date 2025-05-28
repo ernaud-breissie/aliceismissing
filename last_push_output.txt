@@ -1,65 +1,0 @@
-
-🔧 Configuration initiale...
-
-📦 Sauvegarde des dépendances...
-
-⬇️  Mise à jour depuis la branche main...
-
-➕ Ajout des modifications...
-
-⚙️  Configuration du dépôt...
-✅ Configuration Git sauvegardée
-
-💾 Création du commit...
-Commit output: [main 230cb0d] wip main Updated: 2025-05-28 19:34:00
- 1 file changed, 0 insertions(+), 0 deletions(-)
- create mode 100644 last_push_output.txt
-
-
-🔧 Configuration de l'URL authentifiée: https://ernaud-breissie:****@github.com/ernaud-breissie/aliceismissing.git
-URL actuelle du remote: https://ernaud-breissie:****@github.com/ernaud-breissie/aliceismissing.git
-
-
-⬆️  Push vers la branche main...
-Énumération des objets: 77, fait.
-Décompte des objets:   1% (1/77)Décompte des objets:   2% (2/77)Décompte des objets:   3% (3/77)Décompte des objets:   5% (4/77)Décompte des objets:   6% (5/77)Décompte des objets:   7% (6/77)Décompte des objets:   9% (7/77)Décompte des objets:  10% (8/77)Décompte des objets:  11% (9/77)Décompte des objets:  12% (10/77)Décompte des objets:  14% (11/77)Décompte des objets:  15% (12/77)Décompte des objets:  16% (13/77)Décompte des objets:  18% (14/77)Décompte des objets:  19% (15/77)Décompte des objets:  20% (16/77)Décompte des objets:  22% (17/77)Décompte des objets:  23% (18/77)Décompte des objets:  24% (19/77)Décompte des objets:  25% (20/77)Décompte des objets:  27% (21/77)Décompte des objets:  28% (22/77)Décompte des objets:  29% (23/77)Décompte des objets:  31% (24/77)Décompte des objets:  32% (25/77)Décompte des objets:  33% (26/77)Décompte des objets:  35% (27/77)Décompte des objets:  36% (28/77)Décompte des objets:  37% (29/77)Décompte des objets:  38% (30/77)Décompte des objets:  40% (31/77)Décompte des objets:  41% (32/77)Décompte des objets:  42% (33/77)Décompte des objets:  44% (34/77)Décompte des objets:  45% (35/77)Décompte des objets:  46% (36/77)Décompte des objets:  48% (37/77)Décompte des objets:  49% (38/77)Décompte des objets:  50% (39/77)Décompte des objets:  51% (40/77)Décompte des objets:  53% (41/77)Décompte des objets:  54% (42/77)Décompte des objets:  55% (43/77)Décompte des objets:  57% (44/77)Décompte des objets:  58% (45/77)Décompte des objets:  59% (46/77)Décompte des objets:  61% (47/77)Décompte des objets:  62% (48/77)Décompte des objets:  63% (49/77)Décompte des objets:  64% (50/77)Décompte des objets:  66% (51/77)Décompte des objets:  67% (52/77)Décompte des objets:  68% (53/77)Décompte des objets:  70% (54/77)Décompte des objets:  71% (55/77)Décompte des objets:  72% (56/77)Décompte des objets:  74% (57/77)Décompte des objets:  75% (58/77)Décompte des objets:  76% (59/77)Décompte des objets:  77% (60/77)Décompte des objets:  79% (61/77)Décompte des objets:  80% (62/77)Décompte des objets:  81% (63/77)Décompte des objets:  83% (64/77)Décompte des objets:  84% (65/77)Décompte des objets:  85% (66/77)Décompte des objets:  87% (67/77)Décompte des objets:  88% (68/77)Décompte des objets:  89% (69/77)Décompte des objets:  90% (70/77)Décompte des objets:  92% (71/77)Décompte des objets:  93% (72/77)Décompte des objets:  94% (73/77)Décompte des objets:  96% (74/77)Décompte des objets:  97% (75/77)Décompte des objets:  98% (76/77)Décompte des objets: 100% (77/77)Décompte des objets: 100% (77/77), fait.
-Compression par delta en utilisant jusqu'à 16 fils d'exécution
-Compression des objets:   1% (1/71)Compression des objets:   2% (2/71)Compression des objets:   4% (3/71)Compression des objets:   5% (4/71)Compression des objets:   7% (5/71)Compression des objets:   8% (6/71)Compression des objets:   9% (7/71)Compression des objets:  11% (8/71)Compression des objets:  12% (9/71)Compression des objets:  14% (10/71)Compression des objets:  15% (11/71)Compression des objets:  16% (12/71)Compression des objets:  18% (13/71)Compression des objets:  19% (14/71)Compression des objets:  21% (15/71)Compression des objets:  22% (16/71)Compression des objets:  23% (17/71)Compression des objets:  25% (18/71)Compression des objets:  26% (19/71)Compression des objets:  28% (20/71)Compression des objets:  29% (21/71)Compression des objets:  30% (22/71)Compression des objets:  32% (23/71)Compression des objets:  33% (24/71)Compression des objets:  35% (25/71)Compression des objets:  36% (26/71)Compression des objets:  38% (27/71)Compression des objets:  39% (28/71)Compression des objets:  40% (29/71)Compression des objets:  42% (30/71)Compression des objets:  43% (31/71)Compression des objets:  45% (32/71)Compression des objets:  46% (33/71)Compression des objets:  47% (34/71)Compression des objets:  49% (35/71)Compression des objets:  50% (36/71)Compression des objets:  52% (37/71)Compression des objets:  53% (38/71)Compression des objets:  54% (39/71)Compression des objets:  56% (40/71)Compression des objets:  57% (41/71)Compression des objets:  59% (42/71)Compression des objets:  60% (43/71)Compression des objets:  61% (44/71)Compression des objets:  63% (45/71)Compression des objets:  64% (46/71)Compression des objets:  66% (47/71)Compression des objets:  67% (48/71)Compression des objets:  69% (49/71)Compression des objets:  70% (50/71)Compression des objets:  71% (51/71)Compression des objets:  73% (52/71)Compression des objets:  74% (53/71)Compression des objets:  76% (54/71)Compression des objets:  77% (55/71)Compression des objets:  78% (56/71)Compression des objets:  80% (57/71)Compression des objets:  81% (58/71)Compression des objets:  83% (59/71)Compression des objets:  84% (60/71)Compression des objets:  85% (61/71)Compression des objets:  87% (62/71)Compression des objets:  88% (63/71)Compression des objets:  90% (64/71)Compression des objets:  91% (65/71)Compression des objets:  92% (66/71)Compression des objets:  94% (67/71)Compression des objets:  95% (68/71)Compression des objets:  97% (69/71)Compression des objets:  98% (70/71)Compression des objets: 100% (71/71)Compression des objets: 100% (71/71), fait.
-Écriture des objets:   1% (1/73)Écriture des objets:   2% (2/73)Écriture des objets:   4% (3/73)Écriture des objets:   5% (4/73)Écriture des objets:   6% (5/73)Écriture des objets:   8% (6/73)Écriture des objets:   9% (7/73)Écriture des objets:  10% (8/73)Écriture des objets:  12% (9/73)Écriture des objets:  13% (10/73)Écriture des objets:  15% (11/73)Écriture des objets:  16% (12/73)Écriture des objets:  17% (13/73)Écriture des objets:  19% (14/73)Écriture des objets:  20% (15/73)Écriture des objets:  21% (16/73)Écriture des objets:  23% (17/73)Écriture des objets:  24% (18/73)Écriture des objets:  26% (19/73)Écriture des objets:  27% (20/73)Écriture des objets:  28% (21/73)Écriture des objets:  30% (22/73)Écriture des objets:  31% (23/73)Écriture des objets:  32% (24/73)Écriture des objets:  34% (25/73)Écriture des objets:  36% (27/73)Écriture des objets:  39% (29/73)Écriture des objets:  41% (30/73)Écriture des objets:  43% (32/73)Écriture des objets:  45% (33/73)Écriture des objets:  46% (34/73)Écriture des objets:  47% (35/73)Écriture des objets:  49% (36/73)Écriture des objets:  52% (38/73)Écriture des objets:  53% (39/73)Écriture des objets:  54% (40/73)Écriture des objets:  56% (41/73)Écriture des objets:  57% (42/73)Écriture des objets:  58% (43/73)Écriture des objets:  60% (44/73)Écriture des objets:  61% (45/73)Écriture des objets:  63% (46/73)Écriture des objets:  64% (47/73)Écriture des objets:  65% (48/73)Écriture des objets:  67% (49/73)Écriture des objets:  72% (53/73)Écriture des objets:  73% (54/73)Écriture des objets:  75% (55/73)Écriture des objets:  76% (56/73)Écriture des objets:  78% (57/73)Écriture des objets:  79% (58/73)Écriture des objets:  80% (59/73)Écriture des objets:  82% (60/73)Écriture des objets:  83% (61/73)Écriture des objets:  84% (62/73)Écriture des objets:  86% (63/73)Écriture des objets:  87% (64/73)Écriture des objets:  89% (65/73)Écriture des objets:  90% (66/73)Écriture des objets:  91% (67/73)Écriture des objets:  93% (68/73)Écriture des objets:  94% (69/73)Écriture des objets:  95% (70/73)Écriture des objets:  97% (71/73)Écriture des objets:  98% (72/73)Écriture des objets: 100% (73/73)Écriture des objets: 100% (73/73), 14.37 Kio | 3.59 Mio/s, fait.
-Total 73 (delta 42), réutilisés 1 (delta 0), réutilisés du pack 0
-remote: Resolving deltas:   0% (0/42)[Kremote: Resolving deltas:   2% (1/42)[Kremote: Resolving deltas:   4% (2/42)[Kremote: Resolving deltas:   7% (3/42)[Kremote: Resolving deltas:   9% (4/42)[Kremote: Resolving deltas:  11% (5/42)[Kremote: Resolving deltas:  14% (6/42)[Kremote: Resolving deltas:  16% (7/42)[Kremote: Resolving deltas:  19% (8/42)[Kremote: Resolving deltas:  21% (9/42)[Kremote: Resolving deltas:  23% (10/42)[Kremote: Resolving deltas:  26% (11/42)[Kremote: Resolving deltas:  28% (12/42)[Kremote: Resolving deltas:  30% (13/42)[Kremote: Resolving deltas:  33% (14/42)[Kremote: Resolving deltas:  35% (15/42)[Kremote: Resolving deltas:  38% (16/42)[Kremote: Resolving deltas:  40% (17/42)[Kremote: Resolving deltas:  42% (18/42)[Kremote: Resolving deltas:  45% (19/42)[Kremote: Resolving deltas:  47% (20/42)[Kremote: Resolving deltas:  50% (21/42)[Kremote: Resolving deltas:  52% (22/42)[Kremote: Resolving deltas:  54% (23/42)[Kremote: Resolving deltas:  57% (24/42)[Kremote: Resolving deltas:  59% (25/42)[Kremote: Resolving deltas:  61% (26/42)[Kremote: Resolving deltas:  64% (27/42)[Kremote: Resolving deltas:  66% (28/42)[Kremote: Resolving deltas:  69% (29/42)[Kremote: Resolving deltas:  71% (30/42)[Kremote: Resolving deltas:  73% (31/42)[Kremote: Resolving deltas:  76% (32/42)[Kremote: Resolving deltas:  78% (33/42)[Kremote: Resolving deltas:  80% (34/42)[Kremote: Resolving deltas:  83% (35/42)[Kremote: Resolving deltas:  85% (36/42)[Kremote: Resolving deltas:  88% (37/42)[Kremote: Resolving deltas:  90% (38/42)[Kremote: Resolving deltas:  92% (39/42)[Kremote: Resolving deltas:  95% (40/42)[Kremote: Resolving deltas:  97% (41/42)[Kremote: Resolving deltas: 100% (42/42)[Kremote: Resolving deltas: 100% (42/42), completed with 2 local objects.[K
-remote: [1;31merror[m: GH013: Repository rule violations found for refs/heads/main.[K
-remote: 
-remote: - GITHUB PUSH PROTECTION[K
-remote:   —————————————————————————————————————————[K
-remote:     Resolve the following violations before pushing again[K
-remote: 
-remote:     - Push cannot contain secrets[K
-remote: 
-remote:     [K
-remote:      (?) Learn how to resolve a blocked push[K
-remote:      https://docs.github.com/code-security/secret-scanning/working-with-secret-scanning-and-push-protection/working-with-push-protection-from-the-command-line#resolving-a-blocked-push[K
-remote:     [K
-remote:     [K
-remote:       —— GitHub Personal Access Token ——————————————————————[K
-remote:        locations:[K
-remote:          - commit: 6c938e5e7ed16cf9b1be4f7e3d9bead783560f13[K
-remote:            path: request.txt:1[K
-remote:     [K
-remote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.[K
-remote:        https://github.com/ernaud-breissie/aliceismissing/security/secret-scanning/unblock-secret/2xjRv0cupYaU4MrBL1zGOGUFeGA[K
-remote:     [K
-remote: 
-remote: 
-To https://github.com/ernaud-breissie/aliceismissing.git
- [31m! [remote rejected][m main -> main (push declined due to repository rule violations)
-[31merror: impossible de pousser des références vers 'https://github.com/ernaud-breissie/aliceismissing.git'
-[m
-❌ Échec du push - Vérifiez les messages d'erreur ci-dessus
-
-🔍 Si vous voyez une erreur GH013 :
-   1. Annuler le dernier commit:
-      git reset --hard HEAD~1
-   2. Vérifier les fichiers pour des tokens ou secrets
-   3. Relancer le script
-✅ Configuration Git restaurée
