@@ -2,45 +2,107 @@
 
 import os
 import subprocess
-import shutil  # Pour la copie de fichiers (sauvegarde)
+import shutil
 from datetime import datetime
 from dotenv import load_dotenv
+import re
+
+def mask_sensitive_data(content):
+    """Mask sensitive data in content."""
+    # Mask GitHub tokens
+    content = re.sub(r'ghp_[a-zA-Z0-9]{36}', 'ghp_****', content)
+    # Mask other potential tokens
+    content = re.sub(r'[a-zA-Z0-9]{40}', '****', content)
+    return content
 
 def run_cmd(cmd, check=False):
     """Run a command and return (success, stdout, stderr)."""
     try:
+        # Pour les commandes git push, on ne capture pas la sortie pour voir les erreurs en temps réel
+        if 'push' in cmd:
+            result = subprocess.run(cmd, check=check, text=True)
+            return result.returncode == 0, "", ""
+        
         result = subprocess.run(cmd, check=check, capture_output=True, text=True)
         return True, result.stdout, result.stderr
     except subprocess.CalledProcessError as e:
+        error_msg = e.stderr.strip()
+        
+        # Détection des erreurs d'authentification
+        if "Authentication failed" in error_msg or "fatal: Authentication failed" in error_msg:
+            print("\n❌ Erreur d'authentification Git:")
+            print("   - Vérifiez votre token GitHub")
+            print("   - Assurez-vous que le token a les bonnes permissions")
+            print("   - Vérifiez que l'URL du dépôt est correcte")
+        elif "fatal: not a git repository" in error_msg:
+            print("\n❌ Erreur: Ce répertoire n'est pas un dépôt Git")
+        elif "fatal: remote origin already exists" in error_msg:
+            print("\n❌ Erreur: La remote 'origin' existe déjà")
+        elif "fatal: refusing to merge unrelated histories" in error_msg:
+            print("\n❌ Erreur: Les historiques sont incompatibles")
+            print("   Utilisez --allow-unrelated-histories pour forcer la fusion")
+        elif "fatal: unable to access" in error_msg:
+            print("\n❌ Erreur d'accès au dépôt:")
+            print("   - Vérifiez votre connexion internet")
+            print("   - Vérifiez les permissions du dépôt")
+            print("   - Vérifiez l'URL du dépôt")
+        elif "GH013" in error_msg or "Repository rule violations" in error_msg:
+            print("\n❌ Erreur: Violation des règles du dépôt")
+            print("   - Des informations sensibles ont été détectées")
+            print("   - Vérifiez que vous n'avez pas commité de tokens ou de secrets")
+            print("   - Supprimez les fichiers contenant des informations sensibles")
+        
         if check:
-            print(f"Command failed: {' '.join(cmd)}")
-            print(f"Error output: {e.stderr}")
+            print(f"\nCommande échouée: {' '.join(cmd)}")
+            print(f"Message d'erreur: {error_msg}")
             raise
-        return False, e.stdout, e.stderr
+        return False, e.stdout, error_msg
+
+def backup_git_config():
+    """Backup git config and return backup path."""
+    backup_path = '.git/config.bak'
+    if os.path.exists('.git/config'):
+        shutil.copy2('.git/config', backup_path)
+        print("✅ Configuration Git sauvegardée")
+    return backup_path
+
+def restore_git_config(backup_path):
+    """Restore git config from backup."""
+    if os.path.exists(backup_path):
+        shutil.copy2(backup_path, '.git/config')
+        os.remove(backup_path)
+        print("✅ Configuration Git restaurée")
 
 # Load environment variables
 load_dotenv()
 
 try:
+    print("\n🔧 Configuration initiale...")
     # Configure git with user from .env
     run_cmd(['git', 'config', '--local', 'user.name', os.getenv('user')], check=True)
     run_cmd(['git', 'config', '--local', 'user.email', os.getenv('email')], check=True)
 
-    # Save requirements
+    # Save requirements with sensitive data masked
+    print("\n📦 Sauvegarde des dépendances...")
     success, requirements, _ = run_cmd(['pip', 'freeze'], check=True)
+    masked_requirements = mask_sensitive_data(requirements)
     with open('request.txt', 'w') as f:
-        f.write(requirements)
+        f.write(masked_requirements)
 
     # Get current branch
     branch = subprocess.run(['git', 'symbolic-ref', 'HEAD'], 
                           capture_output=True, text=True, check=True).stdout.strip().split('/')[-1]
 
     # Try to pull, ignore if branch doesn't exist
+    print(f"\n⬇️  Mise à jour depuis la branche {branch}...")
     run_cmd(['git', 'pull', 'origin', branch])
 
     # Add all changes
+    print("\n➕ Ajout des modifications...")
     run_cmd(['git', 'add', '.'], check=True)
+
     # Configuration git
+    print("\n⚙️  Configuration du dépôt...")
     auth_url = os.getenv("url_git_projet")
     config = f"""[core]
 	repositoryformatversion = 0
@@ -57,16 +119,14 @@ try:
 	name = {os.getenv('user')}
 	email = {os.getenv('email')}
 """
-        # Backup the current config
-    shutil.copy2('.git/config', '.git/config.bak')
-        
-        # Write the new config
+    # Backup and update config
+    backup_path = backup_git_config()
     with open('.git/config', 'w') as f:
         f.write(config)
 
-
     # Create commit with timestamp
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    print(f"\n💾 Création du commit...")
     commit_success, commit_output, commit_error = run_cmd(['git', 'commit', '-m', f'wip {branch} Updated: {current_time}'])
     print(f"Commit output: {commit_output or commit_error}")
 
@@ -75,39 +135,53 @@ try:
         # Store original URL
         success, original_url, _ = run_cmd(['git', 'remote', 'get-url', 'origin'])
 
+        # Mask the token in the URL before displaying
         masked_url = auth_url.replace(os.getenv('github_token'), '****')
-        print(f"Setting up authenticated URL: {masked_url}")
+        print(f"\n🔧 Configuration de l'URL authentifiée: {masked_url}")
         run_cmd(['git', 'remote', 'set-url', 'origin', auth_url])
-
 
         # Verify URL was set correctly
         success, current_url, _ = run_cmd(['git', 'remote', 'get-url', 'origin'])
         masked_current = current_url.replace(os.getenv('github_token'), '****')
-        print(f"Current remote URL: {masked_current}")
+        print(f"URL actuelle du remote: {masked_current}")
         
         # Push changes
-        print(f"Pushing to branch {branch}...")
-        success, push_out, push_err = run_cmd(['git', 'push', '--set-upstream', 'origin', branch])
-        if success:
-            print("Push successful")
-        else:
-            print("Push failed with error:")
-            print(push_err)
-            if push_out:
-                print("Push output:")
-                print(push_out)
+        print(f"\n⬆️  Push vers la branche {branch}...")
+        try:
+            # On exécute le push sans capture de sortie pour voir les erreurs en temps réel
+            push_process = subprocess.run(['git', 'push', '--set-upstream', 'origin', branch], 
+                                        check=False, text=True)
+            success = push_process.returncode == 0
+            
+            if not success:
+                print("\n❌ Échec du push - Vérifiez les messages d'erreur ci-dessus")
+                print("   Si vous voyez des erreurs concernant des secrets ou tokens,")
+                print("   utilisez 'git reset --hard HEAD~1' pour annuler le dernier commit")
+                print("   puis relancez le script")
+            else:
+                print("✅ Push réussi")
+        except Exception as e:
+            print(f"\n❌ Erreur lors du push: {str(e)}")
+            success = False
         
         # Restore original URL
         run_cmd(['git', 'remote', 'set-url', 'origin', original_url])
         if success:
-            print("Changes committed and pushed successfully")
+            print("\n✅ Changements commités et pushés avec succès")
     else:
-        print("No changes to commit")
+        print("\nℹ️  Aucun changement à commiter")
 
-    # Restore normal git configuration
-    run_cmd(['git', 'config', '--local', 'user.name', os.getenv('user_normal')], check=True)
-    run_cmd(['git', 'config', '--local', 'user.email', os.getenv('email_normal')], check=True)
+    # Restore git configuration
+    restore_git_config(backup_path)
 
 except Exception as e:
-    print(f"Error: {str(e)}")
+    print(f"\n❌ Erreur critique: {str(e)}")
+    print("Stack trace:")
+    import traceback
+    traceback.print_exc()
+    
+    # Ensure we restore the config even if there's an error
+    if 'backup_path' in locals():
+        restore_git_config(backup_path)
+    
     exit(1)
