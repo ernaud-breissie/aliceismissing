@@ -27,6 +27,13 @@ with open('.env', 'r') as f:
         os.environ[key] = value
 
 try:
+    #print the local var in the .env file
+    print(os.getenv('user'))
+    print(os.getenv('email'))
+    print(os.getenv('url_git_projet'))
+    print(os.getenv('original_url'))
+    print(os.getenv('user_temp'))
+    print(os.getenv('email_temp'))
     # Configure git with user from .env
     run_cmd(['git', 'config', '--local', 'user.name', os.getenv('user')], check=True)
     run_cmd(['git', 'config', '--local', 'user.email', os.getenv('email')], check=True)
