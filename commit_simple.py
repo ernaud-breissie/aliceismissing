@@ -2,11 +2,9 @@
 
 import os
 import subprocess
+import shutil  # Pour la copie de fichiers (sauvegarde)
 from datetime import datetime
 from dotenv import load_dotenv
-
-import os
-import shutil # Pour la copie de fichiers (sauvegarde)
 
 def run_cmd(cmd, check=False):
     """Run a command and return (success, stdout, stderr)."""
@@ -56,32 +54,29 @@ try:
         masked_url = auth_url.replace(os.getenv('github_token'), '****')
         print(f"Setting up authenticated URL: {masked_url}")
         run_cmd(['git', 'remote', 'set-url', 'origin', auth_url])
-        #write the user , the the email and the url in the .git/config
-        with open('.git/config', 'w') as f:
-            config="""
-                [core]
-                    repositoryformatversion = 0
-                    filemode = true
-                    bare = false
-                    logallrefupdates = true
-                [remote "origin"]
-                    url = git@github.com:ernaud-breissie/aliceismissing.git
-                    fetch = +refs/heads/*:refs/remotes/origin/*
-                [branch "main"]
-                    remote = origin
-                    merge = refs/heads/main
-                [user]
-                    name = {os.getenv('user')}
-                    email = {os.getenv('email')}
-                """
-            config = config.format(user=os.getenv('user'), email=os.getenv('email'))
-            config = config.replace("\\n", "\n")
-            config = config.format(url=os.getenv("url_git_projet"))
-            f.write(config)
 
-
-
+        # Configuration git
+        config = f"""[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	url = {auth_url}
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "main"]
+	remote = origin
+	merge = refs/heads/main
+[user]
+	name = {os.getenv('user')}
+	email = {os.getenv('email')}
+"""
+        # Backup the current config
+        shutil.copy2('.git/config', '.git/config.bak')
         
+        # Write the new config
+        with open('.git/config', 'w') as f:
+            f.write(config)
 
         # Verify URL was set correctly
         success, current_url, _ = run_cmd(['git', 'remote', 'get-url', 'origin'])
@@ -108,8 +103,8 @@ try:
         print("No changes to commit")
 
     # Restore normal git configuration
-    run_cmd(['git', 'config', '--global', 'user.name', os.getenv('user_normal')], check=True)
-    run_cmd(['git', 'config', '--global', 'user.email', os.getenv('email_normal')], check=True)
+    run_cmd(['git', 'config', '--local', 'user.name', os.getenv('user_normal')], check=True)
+    run_cmd(['git', 'config', '--local', 'user.email', os.getenv('email_normal')], check=True)
 
 except Exception as e:
     print(f"Error: {str(e)}")
