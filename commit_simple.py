@@ -119,12 +119,18 @@ try:
         success, original_url, _ = run_cmd(['git', 'remote', 'get-url', 'origin'])
         original_url = original_url.replace("\n","")
         original_url = original_url.replace("\\n","")
+        if original_url[-1] == "\\":
+            original_ur = original_url[:-1]
         
         # Configure authentication URL
         auth_url = f"https://{os.getenv('login')}:{os.getenv('github_token')}@github.com/ernaud-breissie/aliceismissing.git"
         # Clean and validate URL
         auth_url = auth_url.replace("\n","")
+        auth_url = auth_url.replace("\n","")
         auth_url = clean_url(auth_url)
+        #enleve le dernier \ du string auth_url
+        if auth_url[-1] == "\\":
+            auth_url = auth_url[:-1]
         masked_url = auth_url.replace(os.getenv('github_token'), '****')
         print(f"Setting up authenticated URL: {masked_url}")
         run_cmd(['git', 'remote', 'set-url', 'origin', auth_url])
