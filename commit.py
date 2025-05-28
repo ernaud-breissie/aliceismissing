@@ -76,21 +76,21 @@ def get_remote_url(login, token):
     
     # Convert SSH URL to HTTPS if necessary
     if remote_url.startswith("git@"):
-        remote_url = remote_url.replace(":", "/").replace("git@", "https://")
+        remote_url = remote_url.replace(":", "/").replace("git@", "")
     
     # Remove existing credentials if present
     if "@" in remote_url:
-        remote_url = "https://" + remote_url.split("@")[1]
+        remote_url = remote_url.split("@")[1]
     
     # Remove 'https://' if present
     remote_url = remote_url.replace("https://", "")
     
-    # URL encode the token and login
+    # URL encode the token
     encoded_token = quote(token, safe='')
-    encoded_login = quote(login, safe='')
     
     # Create new URL with token authentication
-    return f"https://{encoded_login}:{encoded_token}@{remote_url}"
+    # Format: https://[token]@github.com/[owner]/[repo].git
+    return f"https://{encoded_token}@{remote_url}"
 
 def main():
     # Check if we're in a git repository
@@ -177,7 +177,7 @@ def main():
         )
 
         # Reset remote URL to HTTPS without credentials
-        clean_url = remote_url.replace(f"{login}:{github_token}@", "")
+        clean_url = remote_url.replace(f"{github_token}@", "")
         run_command(
             f'git remote set-url origin "{clean_url}"',
             "Failed to reset remote URL"
