@@ -208,12 +208,12 @@ try:
             success = push_process.returncode == 0
 
             # Afficher toute la sortie du push
+            print("\n=== Sortie complète du push ===")
             if push_process.stdout:
-                print("\n--- Sortie standard du push ---")
                 print(push_process.stdout)
             if push_process.stderr:
-                print("\n--- Sortie d'erreur du push ---")
                 print(push_process.stderr)
+            print("==============================\n")
 
             if not success:
                 print("\n❌ Échec du push - Vérifiez les messages d'erreur ci-dessus")
