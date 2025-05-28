@@ -151,6 +151,7 @@ try:
         # Push changes
         print(f"Pushing to branch {branch}...")
         success, push_out, push_err = run_cmd(['git', 'push', '--set-upstream', 'origin', branch])
+        success, push_out, push_err = run_cmd(['git', 'push', 'origin', branch])
         if success:
             print("Push successful")
         else:
