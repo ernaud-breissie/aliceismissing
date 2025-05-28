@@ -1,0 +1,20 @@
+Test Report - 2025-05-26 10:11:43
+====================
+
+[1mRunning tests for chat[0m
+====================
+[0;32mTests passed for chat[0m
+
+[1mRunning tests for game[0m
+====================
+[0;32mTests passed for game[0m
+
+[1mRunning tests for players[0m
+====================
+[0;32mTests passed for players[0m
+
+[1mTest Summary[0m
+====================
+[0;32mAll tests completed successfully![0m
+
+Report saved to: reports/test_report_20250526_101143.txt

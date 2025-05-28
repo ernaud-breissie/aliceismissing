@@ -1,0 +1,2 @@
+# Initialize template tags package
+

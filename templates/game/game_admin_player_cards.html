@@ -1,0 +1,210 @@
+{% extends 'game/base.html' %}
+{% load game_filters %}
+
+{% block title %}Manage Cards - {{ target_player.character_name }}{% endblock %}
+
+{% block header_title %}Manage Player Cards{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <!-- Player Info -->
+            <div class="card mb-3">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span>Player: <span class="{{ target_player.color }}">{{ target_player.character_name }}</span></span>
+                    <span class="badge {% if game.status == 'setup' %}bg-secondary{% elif game.status == 'in_progress' %}bg-success{% else %}bg-danger{% endif %}">
+                        {{ game.get_status_display }}
+                    </span>
+                </div>
+                <div class="card-body">
+                    <p><strong>User:</strong> {{ target_player.user.username }}</p>
+                    <p><strong>Color:</strong> {{ target_player.get_color_display }}</p>
+                    <p><strong>Host:</strong> {% if target_player.is_host %}Yes{% else %}No{% endif %}</p>
+                    <p><strong>Cards in Hand:</strong> {{ player_cards|length }}</p>
+                </div>
+            </div>
+            
+            <!-- Current Cards -->
+            <div class="card mb-3">
+                <div class="card-header">Current Cards</div>
+                <div class="card-body p-0">
+                    {% if player_cards %}
+                        <form method="post" class="mb-0">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="remove">
+                            
+                            <ul class="list-group list-group-flush">
+                                {% for card in player_cards %}
+                                    <li class="list-group-item d-flex justify-content-between align-items-center {% if card.revealed %}text-muted{% endif %}">
+                                        <div class="d-flex align-items-center w-100">
+                                            <div class="form-check me-3">
+                                                <input type="checkbox" name="card_ids" value="{{ card.id }}" class="form-check-input">
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <div>{{ card.title }}</div>
+                                                <small class="text-muted">{{ card.get_card_type_display }}</small>
+                                                {% if card.reveal_time %}
+                                                    <span class="badge bg-warning text-dark">Reveals at {{ card.reveal_time }} min</span>
+                                                {% endif %}
+                                            </div>
+                                            <div class="d-flex align-items-center ms-auto">
+                                                <!-- Move toggle form outside of the parent form -->
+                                                <div class="toggle-container me-2">
+                                                    <div class="d-flex align-items-center">
+                                                        <form action="{% url 'game_admin_toggle_card' game.id card.id %}" method="post" class="d-inline mb-0">
+                                                            {% csrf_token %}
+                                                            <label class="toggle-switch mb-0">
+                                                                <input type="checkbox" {% if card.revealed %}checked{% endif %} onchange="this.form.submit()">
+                                                                <span class="toggle-slider"></span>
+                                                            </label>
+                                                        </form>
+                                                        <span class="card-status ms-2">
+                                                            {% if card.revealed %}Revealed{% else %}Hidden{% endif %}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <a href="{% url 'card_detail' game.id card.id %}" class="btn btn-sm btn-outline-primary">
+                                                    View
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            
+                            <div class="p-3">
+                                <button type="submit" class="btn btn-danger">Remove Selected Cards</button>
+                            </div>
+                        </form>
+                    {% else %}
+                        <div class="p-3 text-center text-muted">
+                            This player has no cards yet.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Available Cards -->
+            <div class="card mb-3">
+                <div class="card-header">Add Cards</div>
+                <div class="card-body">
+                    {% if available_cards %}
+                        <form method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="add">
+                            
+                            <!-- Character Cards -->
+                            {% with character_cards=available_cards|filter:"card_type,character" %}
+                                {% if character_cards %}
+                                    <div class="mb-3">
+                                        <h6 class="mb-2">Character Cards</h6>
+                                        <div class="list-group mb-2">
+                                            {% for card in character_cards %}
+                                                <label class="list-group-item">
+                                                    <input type="checkbox" name="card_ids" value="{{ card.id }}" class="form-check-input me-2">
+                                                    {{ card.title }}
+                                                </label>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endwith %}
+                            
+                            <!-- Clue Cards -->
+                            {% with clue_cards=available_cards|filter:"card_type,clue" %}
+                                {% if clue_cards %}
+                                    <div class="mb-3">
+                                        <h6 class="mb-2">Clue Cards</h6>
+                                        <div class="list-group mb-2">
+                                            {% for card in clue_cards %}
+                                                <label class="list-group-item">
+                                                    <input type="checkbox" name="card_ids" value="{{ card.id }}" class="form-check-input me-2">
+                                                    {{ card.title }}
+                                                    {% if card.reveal_time %}
+                                                        <small class="text-muted">(Reveals at {{ card.reveal_time }} min)</small>
+                                                    {% endif %}
+                                                </label>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endwith %}
+                            
+                            <!-- Location Cards -->
+                            {% with location_cards=available_cards|filter:"card_type,location" %}
+                                {% if location_cards %}
+                                    <div class="mb-3">
+                                        <h6 class="mb-2">Location Cards</h6>
+                                        <div class="list-group mb-2">
+                                            {% for card in location_cards %}
+                                                <label class="list-group-item">
+                                                    <input type="checkbox" name="card_ids" value="{{ card.id }}" class="form-check-input me-2">
+                                                    {{ card.title }}
+                                                </label>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endwith %}
+                            
+                            <!-- Suspect Cards -->
+                            {% with suspect_cards=available_cards|filter:"card_type,suspect" %}
+                                {% if suspect_cards %}
+                                    <div class="mb-3">
+                                        <h6 class="mb-2">Suspect Cards</h6>
+                                        <div class="list-group mb-2">
+                                            {% for card in suspect_cards %}
+                                                <label class="list-group-item">
+                                                    <input type="checkbox" name="card_ids" value="{{ card.id }}" class="form-check-input me-2">
+                                                    {{ card.title }}
+                                                </label>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endwith %}
+                            
+                            <!-- Motive Cards -->
+                            {% with motive_cards=available_cards|filter:"card_type,motive" %}
+                                {% if motive_cards %}
+                                    <div class="mb-3">
+                                        <h6 class="mb-2">Motive Cards</h6>
+                                        <div class="list-group mb-2">
+                                            {% for card in motive_cards %}
+                                                <label class="list-group-item">
+                                                    <input type="checkbox" name="card_ids" value="{{ card.id }}" class="form-check-input me-2">
+                                                    {{ card.title }}
+                                                </label>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endwith %}
+                            
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Add Selected Cards</button>
+                            </div>
+                        </form>
+                    {% else %}
+                        <div class="text-center text-muted">
+                            No available cards to add.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Navigation Buttons -->
+            <div class="d-grid gap-2 mb-4">
+                <a href="{% url 'game_admin' game.id %}" class="btn btn-primary">
+                    <i class="bi bi-arrow-left"></i> Back to Admin Panel
+                </a>
+                <a href="{% url 'game_detail' game.id %}" class="btn btn-outline-secondary">
+                    <i class="bi bi-phone"></i> Back to Game
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

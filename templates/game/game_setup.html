@@ -1,0 +1,139 @@
+{% extends 'game/base.html' %}
+
+{% block title %}Game Setup - Alice is Missing{% endblock %}
+
+{% block header_title %}Game Setup{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <h2 class="text-center mb-3">{{ game.title }}</h2>
+            
+            <!-- Join Code Display -->
+            <div class="alert alert-info text-center mb-4">
+                <p class="mb-0"><strong>Join Code:</strong> {{ game.join_code }}</p>
+                <small>Share this code with other players</small>
+            </div>
+            
+            <!-- Player Status -->
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span>Players ({{ players|length }})</span>
+                    {% if player.character_name %}
+                        <span class="badge bg-success">Ready</span>
+                    {% else %}
+                        <span class="badge bg-warning text-dark">Not Ready</span>
+                    {% endif %}
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for p in players %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {% if p.character_name %}
+                            <div>
+                                <span class="{{ p.color }}">{{ p.character_name }}</span>
+                                <small class="text-muted">({{ p.user.username }})</small>
+                                {% if p.is_host %}
+                                    <span class="badge bg-info">Host</span>
+                                {% endif %}
+                            </div>
+                            <span class="badge bg-success">Ready</span>
+                        {% else %}
+                            <div>
+                                {{ p.user.username }}
+                                {% if p.is_host %}
+                                    <span class="badge bg-info">Host</span>
+                                {% endif %}
+                            </div>
+                            <span class="badge bg-warning text-dark">Selecting Character</span>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <!-- Character Selection -->
+            {% if not player.character_name %}
+            <div class="d-grid mb-4">
+                <a href="{% url 'select_character' game.id %}" class="btn btn-primary">
+                    Select Your Character
+                </a>
+            </div>
+            {% endif %}
+            
+            <!-- Game Controls -->
+            {% if is_host %}
+            <div class="card mb-4">
+                <div class="card-header">
+                    Host Controls
+                </div>
+                <div class="card-body">
+                    <p>As the host, you control when the game begins.</p>
+                    <p class="text-muted">All players must select their characters before starting.</p>
+                    
+                    <form method="post" action="{% url 'start_game' game.id %}">
+                        {% csrf_token %}
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-danger" {% if not all_ready %}disabled{% endif %}>
+                                Start Game
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {% else %}
+            <div class="alert alert-info text-center mb-4">
+                <p class="mb-0">Waiting for the host to start the game...</p>
+            </div>
+            {% endif %}
+            
+            <!-- Game Rules -->
+            <div class="accordion mb-4" id="gameRules">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="rulesHeading">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#rulesCollapse" aria-expanded="false" aria-controls="rulesCollapse">
+                            Game Rules
+                        </button>
+                    </h2>
+                    <div id="rulesCollapse" class="accordion-collapse collapse" aria-labelledby="rulesHeading" data-bs-parent="#gameRules">
+                        <div class="accordion-body">
+                            <p>Alice is Missing is a silent role-playing game about the disappearance of Alice Briarwood.</p>
+                            <p>In this game, you'll communicate only through text messages as you work to uncover what happened to your missing friend.</p>
+                            <p>The game runs in real-time over 90 minutes, and each player takes on the role of a character with a connection to Alice.</p>
+                            <h5>Key Rules:</h5>
+                            <ul>
+                                <li>Communicate only through the in-game text messages</li>
+                                <li>Reveal cards at their designated times</li>
+                                <li>Stay in character throughout the game</li>
+                                <li>Work together to piece together what happened to Alice</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Leave Game Option -->
+            <div class="d-grid">
+                <a href="{% url 'home' %}" class="btn btn-outline-secondary">Leave Game</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Add the all_ready variable for the template
+    document.addEventListener('DOMContentLoaded', function() {
+        {% if is_host %}
+        const allReady = {% if all_ready %}true{% else %}false{% endif %};
+        const startButton = document.querySelector('button[type="submit"]');
+        
+        if (!allReady && startButton) {
+            startButton.setAttribute('title', 'All players must select their characters before starting');
+        }
+        {% endif %}
+    });
+</script>
+{% endblock %}
+

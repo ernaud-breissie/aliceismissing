@@ -1,0 +1,20 @@
+Test Report - 2025-05-26 09:58:35
+====================
+
+Running tests for chat
+====================
+Tests failed for chat
+
+Running tests for game
+====================
+Tests failed for game
+
+Running tests for players
+====================
+Tests failed for players
+
+Test Summary
+====================
+Some tests failed!
+
+Report saved to: reports/test_report_20250526_095835.txt

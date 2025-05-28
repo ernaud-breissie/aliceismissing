@@ -1,0 +1,27 @@
+{% if game.status == 'in_progress' %}
+    <form method="post" action="{% url 'send_message' game.id %}" class="message-form mt-auto">
+        {% csrf_token %}
+        <div class="input-group">
+            <input type="text" name="message" class="form-control" 
+                   placeholder="Type your message as {{ player.character_name }}..." 
+                   aria-label="Message" required autofocus>
+            <button class="btn btn-primary" type="submit">
+                <i class="bi bi-send-fill"></i>
+            </button>
+        </div>
+        <small class="form-text text-muted mt-1">
+            Messages are sent as <span class="{{ player.color }}">{{ player.character_name }}</span>
+        </small>
+    </form>
+{% elif game.status == 'finished' %}
+    <div class="alert alert-warning text-center">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        The game has ended. No more messages can be sent.
+    </div>
+{% elif game.status == 'setup' %}
+    <div class="alert alert-info text-center">
+        <i class="bi bi-info-circle-fill me-2"></i>
+        Messages will be available once the game starts.
+    </div>
+{% endif %}
+

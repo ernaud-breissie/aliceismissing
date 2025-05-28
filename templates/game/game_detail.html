@@ -1,0 +1,631 @@
+{% extends 'game/base.html' %}
+{% load static %}
+
+{% block head_extra %}
+    {{ block.super }}
+    <!-- Mithril JS -->
+    <script src="https://unpkg.com/mithril@2.2.2/mithril.js"></script>
+    {{ initial_messages_json|json_script:"initial-messages-data" }}
+{% endblock %}
+
+{% block title %}{{ game.title }} - Alice is Missing{% endblock %}
+
+{% block header_title %}
+    <span class="{{ player.color }}">{{ player.character_name }}</span>
+{% endblock %}
+
+{% block content %}
+<style>
+/* Hide scrollbar for phone container but keep scroll functionality */
+.phone-container {
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+    overflow-y: auto !important;
+}
+
+.phone-container::-webkit-scrollbar {
+    width: 0 !important;
+    display: none !important;
+}
+
+/* Messages container scroll */
+/* Container styling */
+.container-fluid {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+/* Status and player sections */
+.alert, .player-status {
+    flex-shrink: 0;
+}
+
+/* Messages area */
+#mithril-messages {
+    flex: 1;
+    min-height: 0;  /* Important pour que flex fonctionne correctement */
+    background: #f8f9fa;
+    margin-bottom: 8px;
+}
+
+.messages-container {
+    height: 100%;
+    overflow-y: auto;
+    padding: 15px;
+}
+
+/* Phone content */
+.phone-content {
+    overflow-y: visible !important;
+}
+
+/* Message input footer */
+.message-input-footer {
+    flex-shrink: 0;
+    background: white;
+    padding: 8px;
+    border-top: 1px solid #dee2e6;
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+/* Phone footer menu */
+.phone-footer {
+    flex-shrink: 0;
+    background: white;
+    padding: 8px;
+    border-top: 1px solid #dee2e6;
+    margin-top: 8px;
+}
+
+@media (max-width: 576px) {
+    .message-input-footer {
+        max-width: none;
+    }
+}
+
+/* Message bubbles */
+.message-bubble {
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    max-width: 80%;
+}
+
+.message-sent {
+    background-color: var(--sent-message-bg);
+    margin-left: auto;
+    border-bottom-right-radius: 5px;
+}
+
+.message-received {
+    background-color: var(--received-message-bg);
+    margin-right: auto;
+    border-bottom-left-radius: 5px;
+}
+
+.message-system {
+    background-color: var(--system-message-bg);
+    margin: 10px auto;
+    text-align: center;
+    font-style: italic;
+    max-width: 90%;
+}
+
+.message-direct {
+    border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Message content */
+.message-sender {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.direct-indicator {
+    font-size: 0.85em;
+    opacity: 0.7;
+    margin-left: 5px;
+}
+
+.message-image {
+    margin-top: 8px;
+}
+
+.message-time {
+    font-size: 0.75em;
+    color: #666;
+    margin-top: 5px;
+    text-align: right;
+}
+
+/* Message type selector */
+.message-type-selector {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 8px;
+}
+
+.message-type-selector button,
+.message-type-selector label {
+    padding: 4px 8px;
+    font-size: 13px;
+}
+
+/* Input group */
+.input-group {
+    display: flex;
+    gap: 4px;
+}
+
+.input-group input {
+    flex: 1;
+    padding: 6px 8px;
+}
+
+.input-group button {
+    padding: 6px 12px;
+}
+
+/* Recipient select improvements */
+#recipient-select select {
+    border-radius: 20px;
+    height: 32px;
+    padding: 0 12px;
+    font-size: 0.875rem;
+    background-position: right 12px center;
+}
+
+/* Image preview */
+#image-preview {
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+/* Image preview improvements */
+.image-preview {
+    position: relative;
+    display: inline-block;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.image-expand-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.2s ease;
+}
+
+.image-expand-indicator i {
+    font-size: 1.5rem;
+    transform: scale(0.8);
+    transition: transform 0.2s ease;
+}
+
+.image-preview:hover .image-expand-indicator {
+    opacity: 1;
+}
+
+.image-preview:hover .image-expand-indicator i {
+    transform: scale(1);
+}
+
+.preview-thumbnail {
+    max-width: 40px;
+    max-height: 40px;
+    border-radius: 4px;
+    object-fit: cover;
+    transition: transform 0.2s;
+}
+
+.message-thumbnail {
+    display: block;
+    max-width: 200px;
+    max-height: 150px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+/* Preview hover effects */
+.preview-thumbnail:hover,
+.image-preview:hover .message-thumbnail {
+    transform: scale(1.02);
+}
+
+/* Mobile optimizations */
+@media (max-width: 576px) {
+    .messages-container {
+        padding: 10px;
+    }
+    
+    .message-bubble {
+        max-width: 85%;
+    }
+    
+    .message-thumbnail {
+        max-width: 150px;
+        max-height: 120px;
+    }
+}
+</style>
+<div class="container-fluid p-0 d-flex flex-column h-100">
+    <!-- Game Status Bar -->
+    <div class="alert {% if game.status == 'in_progress' %}alert-primary{% elif game.status == 'setup' %}alert-info{% else %}alert-secondary{% endif %} m-2 py-2">
+        <div class="d-flex justify-content-between align-items-center">
+            <small>
+                {% if game.status == 'in_progress' %}
+                    Game in progress
+                {% elif game.status == 'finished' %}
+                    Game ended
+                {% elif game.status == 'setup' %}
+                    Game Setup - Waiting for host
+                {% endif %}
+            </small>
+        </div>
+    </div>
+
+    <!-- Player Status Section -->
+    <div class="player-status mb-2 px-2">
+        <div class="d-flex flex-wrap justify-content-center">
+            {% for p_loop in game.players.all %}
+                <div class="text-center mx-1 mb-1 player-avatar-container" title="{{ p_loop.user.username }}">
+                    <div class="rounded-circle player-avatar"
+                         style="border: 2px solid var(--{{ p_loop.color }}, #ccc);">
+                        <span class="player-initial {{ p_loop.color }}">{{ p_loop.character_name|slice:":1"|upper }}</span>
+                    </div>
+                    <small class="player-name {{ p_loop.color }}">{{ p_loop.character_name|truncatechars:10 }}</small>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Messages Section -->
+    <div id="mithril-messages-mount" class="flex-grow-1">
+        <!-- Mithril will render messages here -->
+    </div>
+</div>
+
+<!-- Ajout de la modale Bootstrap pour l'affichage des images -->
+<div class="modal fade" id="imageDisplayModal" tabindex="-1" aria-labelledby="imageDisplayModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content bg-dark text-light" style="background-color: rgba(0,0,0,0.85) !important;">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="imageDisplayModalLabel">Image Preview</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <img src="" id="modalImage" class="img-fluid" alt="Full size image" style="max-height: 80vh; object-fit: contain;">
+        <p id="modalCaption" class="mt-2 small"></p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block page_footer %}
+<!-- Message Input Area -->
+<div class="message-input-footer">
+    <form id="message-form" method="post" action="{% url 'send_message' game.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="message_type" id="message-type-input" value="public">
+
+        <div id="image-preview-container" class="mb-2 d-none">
+            <img src="" alt="Preview" id="image-preview-thumb">
+            <button type="button" class="btn-close btn-sm" aria-label="Clear image" onclick="clearImagePreview()"></button>
+        </div>
+
+        <div class="d-flex mb-1 message-controls">
+            <div class="btn-group btn-group-sm message-type-selector me-2">
+                <button type="button" id="public-btn" class="btn btn-primary active" onclick="setMessageType('public')">Public</button>
+                <button type="button" id="direct-btn" class="btn btn-outline-primary" onclick="toggleRecipientSelect()">Direct</button>
+            </div>
+            <div id="recipient-select-container" class="flex-grow-1 d-none">
+                <select name="recipient" class="form-select form-select-sm">
+                    <option value="">To everyone (public)</option>
+                    {% for other_player in game.players.all %}
+                        {% if other_player != player %}
+                        <option value="{{ other_player.id }}">{{ other_player.character_name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <input type="text" name="message" class="form-control" placeholder="Type a message..." id="message-input">
+            <input type="file" name="image" id="image-input" accept="image/*" class="d-none" onchange="handleImageSelect(event)">
+            <button type="button" class="btn btn-outline-secondary" onclick="document.getElementById('image-input').click()">
+                <i class="fas fa-image"></i>
+            </button>
+            <button type="submit" class="btn btn-primary">Send</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script>
+    // Récupérer les messages initiaux depuis la balise script générée par json_script
+    const initialMessagesElement = document.getElementById('initial-messages-data');
+    const initialMessages = initialMessagesElement ? JSON.parse(initialMessagesElement.textContent) : [];
+    
+    // Logger pour les erreurs côté client
+    const Logger = {
+        logError: async function(error, context = {}) {
+            try {
+                const response = await fetch('/log-error/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    },
+                    body: JSON.stringify({
+                        error: error.message || String(error),
+                        stack: error.stack,
+                        context: {
+                            ...context,
+                            url: window.location.href,
+                            userAgent: navigator.userAgent
+                        }
+                    })
+                });
+                if (!response.ok) {
+                    console.error('Failed to log error:', await response.text());
+                }
+            } catch (e) {
+                console.error('Error logging error:', e);
+            }
+        }
+    };
+
+    // Fonctions de gestion des images
+    function handleImageSelect(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const previewContainer = document.getElementById('image-preview-container');
+                const previewThumb = document.getElementById('image-preview-thumb');
+                previewThumb.src = e.target.result;
+                previewContainer.classList.remove('d-none');
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function clearImagePreview() {
+        const previewContainer = document.getElementById('image-preview-container');
+        const previewThumb = document.getElementById('image-preview-thumb');
+        const imageInput = document.getElementById('image-input');
+        previewThumb.src = '';
+        previewContainer.classList.add('d-none');
+        imageInput.value = '';
+    }
+
+    function wrapAsync(fn, context = {}) {
+        return async function(...args) {
+            try {
+                return await fn.apply(this, args);
+            } catch (error) {
+                console.error('Error in async function:', error);
+                await Logger.logError(error, context);
+                throw error;
+            }
+        };
+    }
+
+    function log(msg, data) {
+        console.log(`[${new Date().toISOString()}] ${msg}`, data || '');
+    }
+
+    function escapeHtml(unsafe) {
+        if (unsafe === null || typeof unsafe === 'undefined') return '';
+        return unsafe
+             .replace(/&/g, "&amp;")
+             .replace(/</g, "&lt;")
+             .replace(/>/g, "&gt;")
+             .replace(/"/g, "&quot;")
+             .replace(/'/g, "&#039;");
+    }
+
+    // Fonction pour afficher l'image dans la modale
+    let imageModalInstance = null;
+    function showImageInModal(imageUrl, captionText = "") {
+        const modalElement = document.getElementById('imageDisplayModal');
+        if (!modalElement) {
+            console.error("Modal element #imageDisplayModal not found!");
+            return;
+        }
+
+        const modalImage = modalElement.querySelector('#modalImage');
+        const modalCaption = modalElement.querySelector('#modalCaption');
+
+        modalImage.src = imageUrl;
+        modalImage.alt = captionText || "Full size image";
+        if (modalCaption) {
+            modalCaption.textContent = captionText;
+        }
+
+        if (!imageModalInstance) {
+            imageModalInstance = new bootstrap.Modal(modalElement);
+        }
+        imageModalInstance.show();
+    }
+
+    // Messages component
+    const MessagesComponent = {
+        messages: initialMessages,
+        lastMessageId: initialMessages.length > 0 ? Math.max(0, ...initialMessages.map(m => m.id)) : 0,
+        isLoading: false,
+        error: null,
+        messageContainer: null,
+
+        scrollToBottom: function() {
+            if (MessagesComponent.messageContainer) {
+                setTimeout(() => {
+                    MessagesComponent.messageContainer.scrollTop = MessagesComponent.messageContainer.scrollHeight;
+                }, 0);
+            }
+        },
+
+        oncreate: function(vnode) {
+            MessagesComponent.messageContainer = vnode.dom;
+            MessagesComponent.scrollToBottom();
+            if (gameStatus === 'in_progress') {
+                MessagesComponent.fetchMessages();
+                MessagesComponent.startPolling();
+            }
+        },
+
+        onupdate: function() {
+            MessagesComponent.scrollToBottom();
+        },
+        
+        fetchMessages: function() {
+            if (MessagesComponent.isLoading) return;
+            MessagesComponent.isLoading = true;
+            
+            fetch(`/game/${gameId}/messages/?after=${MessagesComponent.lastMessageId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.messages && data.messages.length > 0) {
+                        MessagesComponent.messages = [...MessagesComponent.messages, ...data.messages];
+                        MessagesComponent.lastMessageId = Math.max(...data.messages.map(m => m.id));
+                        m.redraw();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching messages:', error);
+                    MessagesComponent.error = 'Failed to load new messages';
+                    m.redraw();
+                })
+                .finally(() => {
+                    MessagesComponent.isLoading = false;
+                });
+        },
+
+        pollingInterval: null,
+        startPolling: function() {
+            if (MessagesComponent.pollingInterval) return;
+            MessagesComponent.pollingInterval = setInterval(() => {
+                MessagesComponent.fetchMessages();
+            }, 5000); // Poll every 5 seconds
+        },
+
+        stopPolling: function() {
+            if (MessagesComponent.pollingInterval) {
+                clearInterval(MessagesComponent.pollingInterval);
+                MessagesComponent.pollingInterval = null;
+            }
+        },
+
+        view: function() {
+            return m(".messages-container", [
+                MessagesComponent.error && m(".alert.alert-danger.m-2", MessagesComponent.error),
+                MessagesComponent.messages.length ? 
+                MessagesComponent.messages.map(msg =>
+                    m(`.message-bubble.${msg.type}${msg.isDirect ? '.message-direct' : ''}`, {
+                        key: msg.id,
+                        style: msg.isDirect && msg.sender && msg.sender.color ? `border-color: var(--${msg.sender.color})` : ''
+                    }, [
+                        msg.sender && m(".message-sender", { class: msg.sender.color }, [
+                            msg.sender.name,
+                            msg.isDirect && msg.recipient && m("span.direct-indicator", ` to ${msg.recipient}`)
+                        ]),
+                        !msg.sender && msg.type === "system" && m(".message-sender", "SYSTEM"),
+                        msg.content && m(".message-content-text", {style: "white-space: pre-wrap;"}, msg.content),
+                        msg.image && msg.image.url && m(".message-image.mt-1", 
+                            m("img.message-thumbnail", { 
+                                src: msg.image.url, 
+                                alt: "Shared image (tap to enlarge)",
+                                style: "cursor: pointer;",
+                                onclick: function(e) {
+                                    e.preventDefault();
+                                    showImageInModal(msg.image.url, msg.content || `Image from ${msg.sender ? msg.sender.name : 'system'}`);
+                                }
+                            })
+                        ),
+                        m(".message-time", msg.time)
+                    ])
+                )
+                : m(".text-center.text-muted.py-5.p-2", "No messages yet. Start the conversation!")
+            ]);
+        }
+    };
+
+    const gameStatus = "{{ game.status|escapejs }}";
+    const gameId = {{ game.id }};
+    const messagesMountPoint = document.getElementById('mithril-messages-mount');
+    if (messagesMountPoint) {
+        m.mount(messagesMountPoint, MessagesComponent);
+    } else {
+        console.error("Mithril mount point #mithril-messages-mount not found!");
+    }
+    
+    // Modifier la soumission du formulaire pour mettre à jour Mithril
+    const messageForm = document.getElementById('message-form');
+    if (messageForm) {
+        messageForm.addEventListener('submit', wrapAsync(async function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const submitButton = this.querySelector('button[type="submit"]');
+            submitButton.disabled = true;
+    
+            try {
+                const response = await fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                });
+    
+                const data = await response.json().catch(parseError => ({
+                    success: false,
+                    error: `Server returned non-JSON response: ${response.status} ${response.statusText}`,
+                    details: parseError
+                }));
+    
+                if (!response.ok || !data.success) {
+                    const serverError = data.error || `HTTP error ${response.status}`;
+                    console.error('Failed to send message:', serverError, data.details || '');
+                    alert(`Failed to send message: ${serverError}`);
+                    await Logger.logError(new Error(serverError), { action: 'message_form_submit' });
+                } else {
+                    this.reset();
+                    clearImagePreview();
+                    if (data.message) {
+                        MessagesComponent.messages.push(data.message);
+                        MessagesComponent.lastMessageId = data.message.id;
+                        m.redraw();
+                    }
+                }
+            } catch (error) {
+                console.error('Error sending message:', error);
+                alert('A network error occurred. Please try again.');
+                await Logger.logError(error, { action: 'message_form_submit' });
+            } finally {
+                submitButton.disabled = false;
+                document.getElementById('message-input').focus();
+            }
+        }, { action: 'message_form_submit' }));
+    }
+    </script>
+{% endblock %}
+

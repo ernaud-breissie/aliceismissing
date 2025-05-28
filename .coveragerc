@@ -1,0 +1,26 @@
+[run]
+source = .
+omit =
+    */tests/*
+    */__pycache__/*
+    */migrations/*
+    */settings/*
+    manage.py
+    */wsgi.py
+    */asgi.py
+    */apps.py
+    */__init__.py
+
+[report]
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    raise NotImplementedError
+    if __name__ == .__main__.:
+    pass
+    raise ImportError
+    except ImportError:
+    
+[html]
+directory = reports/coverage_html
+

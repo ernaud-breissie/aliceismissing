@@ -1,0 +1,127 @@
+{% extends 'game/base.html' %}
+
+{% block title %}Home - Alice is Missing{% endblock %}
+
+{% block header_title %}Home{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <h2 class="text-center mb-4">Alice is Missing</h2>
+            
+            <div class="text-center mb-4">
+                <p class="lead">A real-time SMS-based role-playing game</p>
+                <p>To find Alice, you'll need to work together for the next 90 minutes.</p>
+            </div>
+            
+            <div class="d-grid gap-2 mb-4">
+                <a href="{% url 'new_game' %}" class="btn btn-primary">Create New Game</a>
+                <button type="button" class="btn btn-outline-primary" id="showJoinGameFormBtn">
+                    Join Existing Game
+                </button>
+            </div>
+
+            <!-- Formulaire pour rejoindre une partie (initialement caché) -->
+            <div id="joinGameFormContainer" class="card mb-4" style="display: none;">
+                <div class="card-header">
+                    Join Existing Game
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'join_game' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="join_code_inline" class="form-label">Enter Game Code</label>
+                            <input type="text" name="join_code" class="form-control" id="join_code_inline" placeholder="ABCXYZ" required maxlength="8" style="text-transform:uppercase">
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success">Join Game</button>
+                            <button type="button" class="btn btn-secondary" id="cancelJoinGameBtn">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            {% if user_games %}
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Your Games
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group">
+                            {% for game in user_games %}
+                                <a href="{% url 'game_detail' game.id %}" class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">{{ game.title }}</h5>
+                                        <small class="text-muted">{{ game.get_status_display }}</small>
+                                    </div>
+                                    <p class="mb-1">Join Code: {{ game.join_code }}</p>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="alert alert-info text-center" id="noGamesMessage">
+                    You are not part of any games yet. Create a new game or join an existing one.
+                </div>
+            {% endif %}
+            
+            {% if available_games %}
+                <div class="card">
+                    <div class="card-header">
+                        Available Games
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group">
+                            {% for game in available_games %}
+                                <a href="{% url 'join_game_with_code' game.join_code %}" class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">{{ game.title }}</h5>
+                                        <small class="text-muted">Join Code: {{ game.join_code }}</small>
+                                    </div>
+                                    <p class="mb-1">Host: {{ game.host.user.username }}</p>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const showJoinGameFormBtn = document.getElementById('showJoinGameFormBtn');
+        const joinGameFormContainer = document.getElementById('joinGameFormContainer');
+        const cancelJoinGameBtn = document.getElementById('cancelJoinGameBtn');
+        const joinCodeInput = document.getElementById('join_code_inline');
+
+        if (showJoinGameFormBtn && joinGameFormContainer && cancelJoinGameBtn) {
+            showJoinGameFormBtn.addEventListener('click', function() {
+                joinGameFormContainer.style.display = 'block';
+                showJoinGameFormBtn.style.display = 'none';
+                if(joinCodeInput) joinCodeInput.focus();
+            });
+
+            cancelJoinGameBtn.addEventListener('click', function() {
+                joinGameFormContainer.style.display = 'none';
+                showJoinGameFormBtn.style.display = 'block';
+                if(joinCodeInput) joinCodeInput.value = '';
+            });
+        }
+
+        // Mettre le code en majuscules automatiquement
+        if(joinCodeInput) {
+            joinCodeInput.addEventListener('input', function() {
+                this.value = this.value.toUpperCase();
+            });
+        }
+    });
+</script>
+{% endblock %}
+

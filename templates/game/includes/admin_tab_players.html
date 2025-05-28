@@ -1,0 +1,100 @@
+<!-- Player Management Card -->
+<div class="card mb-3">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <span>Player Management</span>
+        <span class="badge bg-primary">{{ game.players.count }} Players</span>
+    </div>
+    <div class="card-body">
+        <div class="list-group">
+            {% for player in game.players.all %}
+                <div class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <div class="player-avatar me-3" style="border: 2px solid var(--{{ player.color }}, #ccc);">
+                                <span class="player-initial {{ player.color }}">{{ player.character_name|slice:":1"|upper }}</span>
+                            </div>
+                            <div>
+                                <h6 class="mb-0 {{ player.color }}">{{ player.character_name }}</h6>
+                                <small class="text-muted">{{ player.user.username }}</small>
+                                {% if player.is_host %}
+                                    <span class="badge bg-info ms-2">Host</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-sm btn-outline-primary" 
+                                    data-bs-toggle="collapse" data-bs-target="#playerDetails{{ player.id }}">
+                                <i class="bi bi-info-circle me-1"></i>Details
+                            </button>
+                            {% if not player.is_host %}
+                                <form method="post" action="{% url 'game_admin_make_host' game.id player.id %}" class="d-inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm btn-outline-info">
+                                        <i class="bi bi-star me-1"></i>Make Host
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="collapse mt-3" id="playerDetails{{ player.id }}">
+                        <div class="card card-body bg-light">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-palette me-2"></i>
+                                        <div>
+                                            <small class="text-muted d-block">Color</small>
+                                            <strong>{{ player.get_color_display }}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-person-badge me-2"></i>
+                                        <div>
+                                            <small class="text-muted d-block">Character Card</small>
+                                            <strong>
+                                                {% if player.character_card %}
+                                                    {{ player.character_card.title }}
+                                                {% else %}
+                                                    <span class="text-muted">None assigned</span>
+                                                {% endif %}
+                                            </strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-journals me-2"></i>
+                                        <div>
+                                            <small class="text-muted d-block">Cards in Hand</small>
+                                            <strong>
+                                                {% with card_count=player.hand.cards.count %}
+                                                    {{ card_count }} card{{ card_count|pluralize }}
+                                                {% endwith %}
+                                            </strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid gap-2 mt-3">
+                                <a href="{% url 'game_admin_player_cards' game.id player.id %}" 
+                                   class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-journals me-1"></i>Manage Cards
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="text-center text-muted py-5">
+                    <i class="bi bi-people display-4 mb-3"></i>
+                    <p>No players have joined this game yet.</p>
+                    <p class="small">Share the join code with players to let them join.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div> 

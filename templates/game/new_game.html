@@ -1,0 +1,51 @@
+{% extends 'game/base.html' %}
+
+{% block title %}Create New Game - Alice is Missing{% endblock %}
+
+{% block header_title %}Create Game{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <h2 class="text-center mb-4">Create New Game</h2>
+            
+            <div class="alert alert-info mb-4">
+                <p class="mb-0">You will be the host of this game. As the host, you'll control when the game starts and ends.</p>
+                <small>Share the join code with friends after creating the game.</small>
+            </div>
+            
+            <form method="post" class="mb-4">
+                {% csrf_token %}
+                
+                <div class="mb-3">
+                    <label for="title" class="form-label">Game Title</label>
+                    <input type="text" name="title" class="form-control" id="title" 
+                           placeholder="Enter a title for your game" value="Alice Search - {% now 'M d, Y' %}" required>
+                    <div class="form-text">Give your investigation a name</div>
+                </div>
+                
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">Create Game</button>
+                    <a href="{% url 'home' %}" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+            </form>
+            
+            <div class="card mb-4">
+                <div class="card-header">About Hosting</div>
+                <div class="card-body">
+                    <p>As the host, you will be responsible for:</p>
+                    <ul>
+                        <li>Inviting players to join</li>
+                        <li>Starting the game when everyone is ready</li>
+                        <li>Managing the game timer</li>
+                        <li>Ending the game if needed</li>
+                    </ul>
+                    <p class="mb-0 text-muted">You'll also play as a character in the game, just like everyone else.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

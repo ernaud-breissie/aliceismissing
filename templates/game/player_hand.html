@@ -1,0 +1,100 @@
+{% extends 'game/base.html' %}
+{% load static %}
+
+{% block title %}Your Hand - {{ game.name }}{% endblock %}
+
+{% block header_title %}Your Hand{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-0">
+    <!-- Game Status Bar -->
+    <div class="alert {% if game.status == 'in_progress' %}alert-primary{% elif game.status == 'finished' %}alert-secondary{% else %}alert-info{% endif %} mb-3 py-2">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <i class="bi bi-journals me-2"></i>
+                <div>
+                    <strong>{{ game.title }}</strong>
+                    <small class="d-block text-muted">Your Hand</small>
+                </div>
+            </div>
+            <span class="badge {% if game.status == 'setup' %}bg-secondary{% elif game.status == 'in_progress' %}bg-success{% else %}bg-danger{% endif %}">
+                {{ game.get_status_display }}
+            </span>
+        </div>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="row g-3">
+        {% for card in cards %}
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card-container" onclick="this.classList.toggle('flipped')">
+                <div class="card-inner">
+                    <!-- Front of card -->
+                    <div class="card-front">
+                        {% if card.front_image %}
+                            <img src="{{ card.front_image.url }}" alt="{{ card.title }}" class="card-image">
+                        {% endif %}
+                        <div class="card-type-badge {{ card.type|lower }}">
+                            <i class="bi bi-{{ card.type|lower }}-icon"></i>
+                            {{ card.type }}
+                        </div>
+                        <h3 class="card-title">{{ card.title }}</h3>
+                        <p class="card-description">{{ card.description }}</p>
+                        <div class="card-hint">
+                            <i class="bi bi-arrow-repeat"></i>
+                            Click to flip
+                        </div>
+                    </div>
+                    
+                    <!-- Back of card -->
+                    <div class="card-back">
+                        {% if card.back_image %}
+                            <img src="{{ card.back_image.url }}" alt="{{ card.title }} back" class="card-image">
+                        {% endif %}
+                        <div class="card-type-badge {{ card.type|lower }}">
+                            <i class="bi bi-{{ card.type|lower }}-icon"></i>
+                            {{ card.type }}
+                        </div>
+                        <h3 class="card-title">{{ card.title }}</h3>
+                        <p class="card-description">{{ card.back_description }}</p>
+                        {% if card.reveal_time %}
+                            <div class="card-reveal-time">
+                                <i class="bi bi-clock"></i>
+                                Reveals at {{ card.reveal_time }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle me-2"></i>
+                You don't have any cards yet. Cards will be dealt by the game host.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add hover effect for desktop
+    if (window.innerWidth > 768) {
+        document.querySelectorAll('.card-container').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.classList.add('flipped');
+            });
+            card.addEventListener('mouseleave', function() {
+                this.classList.remove('flipped');
+            });
+        });
+    }
+});
+</script>
+{% endblock %}
+

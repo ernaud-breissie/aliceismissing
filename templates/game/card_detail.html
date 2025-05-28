@@ -1,0 +1,112 @@
+{% extends 'game/base.html' %}
+
+{% block title %}{{ card.title }} - {{ game.title }}{% endblock %}
+
+{% block header_title %}Card Details{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-0">
+    <!-- Game Status Bar -->
+    <div class="alert {% if game.status == 'in_progress' %}alert-primary{% elif game.status == 'finished' %}alert-secondary{% else %}alert-info{% endif %} mb-3 py-2">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <i class="bi bi-journals me-2"></i>
+                <div>
+                    <strong>{{ game.title }}</strong>
+                    <small class="d-block text-muted">Card Details</small>
+                </div>
+            </div>
+            <span class="badge {% if game.status == 'setup' %}bg-secondary{% elif game.status == 'in_progress' %}bg-success{% else %}bg-danger{% endif %}">
+                {{ game.get_status_display }}
+            </span>
+        </div>
+    </div>
+
+    <!-- Card Detail Section -->
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card-container" id="card-detail">
+                <div class="card-inner">
+                    <!-- Card Front -->
+                    <div class="card-front">
+                        <div class="card-type-badge {{ card.card_type }}">
+                            <i class="bi {% if card.card_type == 'clue' %}bi-lightbulb{% elif card.card_type == 'character' %}bi-person-badge{% elif card.card_type == 'location' %}bi-geo-alt{% elif card.card_type == 'suspect' %}bi-person-lines-fill{% else %}bi-question-circle{% endif %}"></i>
+                            {{ card.get_card_type_display }}
+                        </div>
+                        <h3 class="card-title">{{ card.title }}</h3>
+                        {% if card.image %}
+                            <img src="{{ card.image.url }}" alt="{{ card.title }}" class="card-image">
+                        {% endif %}
+                        <div class="card-hint">
+                            <i class="bi bi-info-circle"></i>
+                            Tap to flip
+                        </div>
+                    </div>
+                    
+                    <!-- Card Back -->
+                    <div class="card-back">
+                        <div class="card-type-badge {{ card.card_type }}">
+                            <i class="bi {% if card.card_type == 'clue' %}bi-lightbulb{% elif card.card_type == 'character' %}bi-person-badge{% elif card.card_type == 'location' %}bi-geo-alt{% elif card.card_type == 'suspect' %}bi-person-lines-fill{% else %}bi-question-circle{% endif %}"></i>
+                            {{ card.get_card_type_display }}
+                        </div>
+                        <h3 class="card-title">{{ card.title }}</h3>
+                        <div class="card-description">
+                            {{ card.description|linebreaks }}
+                        </div>
+                        {% if card.reveal_time %}
+                            <div class="card-reveal-time">
+                                <i class="bi bi-clock"></i>
+                                Reveals at {{ card.reveal_time }} minutes
+                            </div>
+                        {% endif %}
+                        {% if card.image %}
+                            <img src="{{ card.image.url }}" alt="{{ card.title }}" class="card-image">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Actions -->
+            <div class="card mt-3">
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        {% if game.status == 'in_progress' and not card.revealed and card.reveal_time and game.time_elapsed >= card.reveal_time %}
+                            <a href="{% url 'reveal_card' game.id card.id %}" class="btn btn-primary">
+                                <i class="bi bi-eye me-2"></i>Reveal Card
+                            </a>
+                        {% endif %}
+                        <a href="{% url 'player_hand' game.id %}" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-2"></i>Back to Hand
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const cardContainer = document.getElementById('card-detail');
+    
+    // Add click handler for mobile
+    cardContainer.addEventListener('click', function() {
+        this.classList.toggle('flipped');
+    });
+    
+    // Add hover effect for desktop
+    if (window.innerWidth > 768) {
+        cardContainer.addEventListener('mouseenter', function() {
+            this.classList.add('flipped');
+        });
+        cardContainer.addEventListener('mouseleave', function() {
+            this.classList.remove('flipped');
+        });
+    }
+});
+</script>
+{% endblock %}
+

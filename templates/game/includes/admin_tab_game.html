@@ -1,0 +1,101 @@
+<!-- Game Information Card -->
+<div class="card mb-3">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <span>Game Information</span>
+        <span class="badge {% if game.status == 'setup' %}bg-secondary{% elif game.status == 'in_progress' %}bg-success{% else %}bg-danger{% endif %}">
+            {{ game.get_status_display }}
+        </span>
+    </div>
+    <div class="card-body">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-key me-2"></i>
+                    <div>
+                        <small class="text-muted d-block">Join Code</small>
+                        <strong>{{ game.join_code }}</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-people me-2"></i>
+                    <div>
+                        <small class="text-muted d-block">Players</small>
+                        <strong>{{ game.players.count }}</strong>
+                    </div>
+                </div>
+            </div>
+            {% if game.status == 'in_progress' %}
+            <div class="col-md-6">
+                <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-clock-history me-2"></i>
+                    <div>
+                        <small class="text-muted d-block">Time Elapsed</small>
+                        <strong>{{ game.time_elapsed }} minutes</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-clock me-2"></i>
+                    <div>
+                        <small class="text-muted d-block">Time Remaining</small>
+                        <strong>{{ game.time_remaining }} minutes</strong>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Game Control Card -->
+<div class="card mb-3">
+    <div class="card-header">Game Control</div>
+    <div class="card-body">
+        {% if game.status == 'setup' %}
+            <form method="post" action="{% url 'start_game' game.id %}" class="mb-2">
+                {% csrf_token %}
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-play-fill me-2"></i>Start Game
+                    </button>
+                </div>
+            </form>
+        {% elif game.status == 'in_progress' %}
+            <form method="post" action="{% url 'end_game' game.id %}" class="mb-2">
+                {% csrf_token %}
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to end the game?');">
+                        <i class="bi bi-stop-fill me-2"></i>End Game
+                    </button>
+                </div>
+            </form>
+        {% elif game.status == 'finished' %}
+            <form method="post" action="{% url 'game_admin_reset' game.id %}" class="mb-2">
+                {% csrf_token %}
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-warning" onclick="return confirm('Are you sure you want to reset this game? This cannot be undone.');">
+                        <i class="bi bi-arrow-counterclockwise me-2"></i>Reset Game
+                    </button>
+                </div>
+            </form>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Quick Actions Card -->
+<div class="card mb-3">
+    <div class="card-header">Quick Actions</div>
+    <div class="card-body">
+        <div class="d-grid gap-2">
+            <a href="{% url 'game_detail' game.id %}" class="btn btn-outline-primary">
+                <i class="bi bi-chat-dots me-2"></i>View Game Chat
+            </a>
+            <a href="{% url 'game_info' game.id %}" class="btn btn-outline-info">
+                <i class="bi bi-info-circle me-2"></i>View Game Info
+            </a>
+        </div>
+    </div>
+</div> 

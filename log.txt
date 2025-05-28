@@ -1,0 +1,736 @@
+ERROR 2025-05-19 19:50:39,959 views 56212 126090039260864 Client Error: clearImagePreview is not defined
+Context: {'url': 'http://localhost:8000/game/1/', 'userAgent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36'}
+Stack: ReferenceError: clearImagePreview is not defined
+    at messageForm.addEventListener.wrapAsync.action (http://localhost:8000/game/1/:704:21)
+    at async HTMLFormElement.<anonymous> (http://localhost:8000/game/1/:549:24)
+URL: http://localhost:8000/game/1/
+User Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+INFO 2025-05-19 19:50:39,962 basehttp 56212 126090039260864 "POST /log-error/ HTTP/1.1" 200 21
+INFO 2025-05-19 19:50:39,975 basehttp 56212 126090022475456 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:50:39,977 basehttp 56212 126090030868160 "GET /game/1/messages/?after=42 HTTP/1.1" 200 143
+ERROR 2025-05-19 19:50:39,984 views 56212 126090030868160 Client Error: Cannot read properties of null (reading 'focus')
+Context: {'action': 'message_form_submit', 'url': 'http://localhost:8000/game/1/', 'userAgent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36'}
+Stack: TypeError: Cannot read properties of null (reading 'focus')
+    at messageForm.addEventListener.wrapAsync.action (http://localhost:8000/game/1/:717:62)
+    at async HTMLFormElement.<anonymous> (http://localhost:8000/game/1/:549:24)
+URL: http://localhost:8000/game/1/
+User Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+INFO 2025-05-19 19:50:39,985 basehttp 56212 126090030868160 "POST /log-error/ HTTP/1.1" 200 21
+INFO 2025-05-19 19:50:41,817 basehttp 56212 126090030868160 "GET /game/1/messages/?after=43 HTTP/1.1" 200 16
+INFO 2025-05-19 19:50:42,496 basehttp 56212 126090030868160 "GET /game/1/ HTTP/1.1" 200 30400
+WARNING 2025-05-19 19:50:42,547 log 56212 126090030868160 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-05-19 19:50:42,548 basehttp 56212 126090030868160 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12084
+INFO 2025-05-19 19:50:42,562 basehttp 56212 126090030868160 "GET /static/css/game.css HTTP/1.1" 200 12347
+INFO 2025-05-19 19:50:42,641 basehttp 56212 126090005690048 "GET /media/messages/20250519_191951_4e1d49db.png HTTP/1.1" 200 78777
+INFO 2025-05-19 19:50:42,642 basehttp 56212 126089997297344 "GET /media/messages/20250519_193542_db019fe6.png HTTP/1.1" 200 78777
+INFO 2025-05-19 19:50:42,643 basehttp 56212 126090039260864 "GET /media/messages/20250519_120301_d3e8d12d.png HTTP/1.1" 200 164672
+INFO 2025-05-19 19:50:42,645 basehttp 56212 126090022475456 "GET /media/messages/20250519_111559_0ed5c21a.png HTTP/1.1" 200 164672
+INFO 2025-05-19 19:50:42,646 basehttp 56212 126090030868160 "GET /game/1/messages/?after=43 HTTP/1.1" 200 16
+INFO 2025-05-19 19:50:42,646 basehttp 56212 126090014082752 "GET /media/messages/20250519_131252_a2ceab25.png HTTP/1.1" 200 164672
+INFO 2025-05-19 19:50:42,652 basehttp 56212 126090014082752 "GET /media/messages/20250519_193635_f9016531.png HTTP/1.1" 200 78777
+INFO 2025-05-19 19:50:42,653 basehttp 56212 126090039260864 "GET /media/messages/20250519_193649_1de17f16.png HTTP/1.1" 200 78777
+INFO 2025-05-19 19:50:42,731 basehttp 56212 126090014082752 "GET /favicon.ico HTTP/1.1" 302 0
+WARNING 2025-05-19 19:50:42,786 basehttp 56212 126090014082752 "GET /static/img/favicon.ico HTTP/1.1" 404 1972
+INFO 2025-05-19 19:50:43,681 basehttp 56212 126090039260864 "GET /game/1/status/ HTTP/1.1" 200 65
+INFO 2025-05-19 19:50:47,629 basehttp 56212 126090039260864 "GET /game/1/messages/?after=43 HTTP/1.1" 200 16
+INFO 2025-05-19 19:50:52,628 basehttp 56212 126090039260864 "GET /game/1/messages/?after=43 HTTP/1.1" 200 16
+INFO 2025-05-19 19:50:52,896 views 56212 126090039260864 Message 44 created by player 1 in game 1.
+INFO 2025-05-19 19:50:52,897 basehttp 56212 126090039260864 "POST /game/1/messages/send/ HTTP/1.1" 200 277
+INFO 2025-05-19 19:50:52,914 basehttp 56212 126090039260864 "GET /media/messages/20250519_195052_11a211d5.png HTTP/1.1" 200 165532
+INFO 2025-05-19 19:50:57,629 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:51:02,630 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:51:04,092 basehttp 56212 126090039260864 "GET /game/1/messages/44/ HTTP/1.1" 200 6542
+INFO 2025-05-19 19:51:05,166 basehttp 56212 126090039260864 "GET /game/1/status/ HTTP/1.1" 200 65
+INFO 2025-05-19 19:51:08,111 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:51:12,630 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:51:12,677 basehttp 56212 126090039260864 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:51:17,628 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:51:22,630 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:51:23,344 basehttp 56212 126090039260864 "GET /game/1/messages/44/ HTTP/1.1" 200 6542
+INFO 2025-05-19 19:51:24,491 basehttp 56212 126090039260864 "GET /game/1/status/ HTTP/1.1" 200 65
+INFO 2025-05-19 19:51:27,167 basehttp 56212 126090039260864 "GET /game/1/messages/44/ HTTP/1.1" 200 6542
+INFO 2025-05-19 19:51:28,112 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:51:28,237 basehttp 56212 126090039260864 "GET /game/1/status/ HTTP/1.1" 200 65
+INFO 2025-05-19 19:51:32,627 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:51:33,346 basehttp 56212 126090039260864 "GET /game/1/messages/44/ HTTP/1.1" 200 6542
+INFO 2025-05-19 19:51:34,412 basehttp 56212 126090039260864 "GET /game/1/status/ HTTP/1.1" 200 65
+INFO 2025-05-19 19:51:35,109 basehttp 56212 126090039260864 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:51:37,628 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:51:39,253 basehttp 56212 126090039260864 "GET /game/1/messages/44/ HTTP/1.1" 200 6542
+INFO 2025-05-19 19:51:39,298 basehttp 56212 126090039260864 "GET /static/css/game.css HTTP/1.1" 304 0
+INFO 2025-05-19 19:51:40,321 basehttp 56212 126090039260864 "GET /game/1/status/ HTTP/1.1" 200 65
+INFO 2025-05-19 19:51:42,628 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:51:42,677 basehttp 56212 126090039260864 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:51:47,629 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:51:52,629 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:51:54,110 basehttp 56212 126090039260864 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:51:57,628 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:51:58,111 basehttp 56212 126090039260864 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:52:03,111 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:52:04,110 basehttp 56212 126090039260864 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:52:05,110 basehttp 56212 126090039260864 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:52:08,112 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:52:10,110 basehttp 56212 126090039260864 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:52:13,117 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:52:13,118 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:52:18,112 basehttp 56212 126090030868160 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:52:23,112 basehttp 56212 126090030868160 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:52:24,113 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:52:28,116 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:52:28,117 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:52:33,109 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:52:34,111 basehttp 56212 126090039260864 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:52:35,110 basehttp 56212 126090039260864 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:52:38,111 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:52:40,109 basehttp 56212 126090039260864 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:52:43,117 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:52:43,117 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:52:48,111 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:52:53,110 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:52:54,109 basehttp 56212 126090039260864 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:52:58,117 basehttp 56212 126090030868160 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:52:58,117 basehttp 56212 126090039260864 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:53:04,109 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:53:05,109 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:53:10,109 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:53:13,110 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:53:24,116 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:53:24,118 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:53:28,110 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:53:34,109 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:53:35,109 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:53:40,108 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:53:43,110 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:53:54,110 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:53:58,109 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:54:04,109 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:54:05,109 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:54:10,109 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:54:19,999 basehttp 56212 126090030868160 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:54:20,002 basehttp 56212 126090039260864 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:54:22,627 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:54:24,110 basehttp 56212 126090039260864 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:54:27,629 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:54:28,108 basehttp 56212 126090039260864 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:54:33,111 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:54:34,110 basehttp 56212 126090039260864 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:54:35,110 basehttp 56212 126090039260864 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:54:38,111 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:54:40,112 basehttp 56212 126090039260864 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:54:43,120 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:54:43,122 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:54:48,113 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:54:53,111 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:54:54,108 basehttp 56212 126090039260864 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:54:58,111 basehttp 56212 126090039260864 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:54:58,117 basehttp 56212 126090030868160 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:55:03,110 basehttp 56212 126090030868160 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:55:04,108 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:55:08,111 basehttp 56212 126090030868160 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:55:10,109 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:55:13,118 basehttp 56212 126090039260864 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:55:13,118 basehttp 56212 126090030868160 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:55:18,111 basehttp 56212 126090030868160 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:55:23,107 basehttp 56212 126090030868160 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:55:24,108 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:55:24,118 basehttp 56212 126090039260864 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:55:28,112 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:55:57,667 basehttp 56212 126090039260864 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:55:58,188 basehttp 56212 126090039260864 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:55:58,188 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:55:59,109 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:55:59,366 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:56:00,515 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:56:01,054 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:56:02,627 basehttp 56212 126090030868160 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:56:04,699 basehttp 56212 126090030868160 "GET /game/1/ HTTP/1.1" 200 32659
+WARNING 2025-05-19 19:56:04,743 log 56212 126090030868160 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-05-19 19:56:04,743 basehttp 56212 126090030868160 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12084
+INFO 2025-05-19 19:56:04,754 basehttp 56212 126090039260864 "GET /static/css/game.css HTTP/1.1" 200 12347
+INFO 2025-05-19 19:56:04,888 basehttp 56212 126090014082752 "GET /media/messages/20250519_193542_db019fe6.png HTTP/1.1" 200 78777
+INFO 2025-05-19 19:56:04,888 basehttp 56212 126090005690048 "GET /media/messages/20250519_191951_4e1d49db.png HTTP/1.1" 200 78777
+INFO 2025-05-19 19:56:04,889 basehttp 56212 126090022475456 "GET /media/messages/20250519_120301_d3e8d12d.png HTTP/1.1" 200 164672
+INFO 2025-05-19 19:56:04,890 basehttp 56212 126090039260864 "GET /media/messages/20250519_111559_0ed5c21a.png HTTP/1.1" 200 164672
+INFO 2025-05-19 19:56:04,891 basehttp 56212 126089997297344 "GET /media/messages/20250519_131252_a2ceab25.png HTTP/1.1" 200 164672
+INFO 2025-05-19 19:56:04,891 basehttp 56212 126090030868160 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:56:04,909 basehttp 56212 126090005690048 "GET /media/messages/20250519_193649_1de17f16.png HTTP/1.1" 200 78777
+INFO 2025-05-19 19:56:04,910 basehttp 56212 126090014082752 "GET /media/messages/20250519_193635_f9016531.png HTTP/1.1" 200 78777
+INFO 2025-05-19 19:56:04,911 basehttp 56212 126089997297344 "GET /media/messages/20250519_195052_11a211d5.png HTTP/1.1" 200 165532
+INFO 2025-05-19 19:56:04,982 basehttp 56212 126089997297344 "GET /favicon.ico HTTP/1.1" 302 0
+WARNING 2025-05-19 19:56:05,034 basehttp 56212 126089997297344 "GET /static/img/favicon.ico HTTP/1.1" 404 1972
+INFO 2025-05-19 19:56:05,930 basehttp 56212 126090005690048 "GET /game/1/status/ HTTP/1.1" 200 65
+INFO 2025-05-19 19:56:06,834 basehttp 56212 126090005690048 "GET /media/messages/20250519_195052_11a211d5.png HTTP/1.1" 200 165532
+INFO 2025-05-19 19:56:09,876 basehttp 56212 126090005690048 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:56:11,081 basehttp 56212 126090005690048 "GET /media/messages/20250519_195052_11a211d5.png HTTP/1.1" 200 165532
+INFO 2025-05-19 19:56:14,876 basehttp 56212 126090005690048 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:56:19,877 basehttp 56212 126090005690048 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:56:21,572 basehttp 56212 126090005690048 "GET /game/1/hand/ HTTP/1.1" 200 11016
+WARNING 2025-05-19 19:56:21,614 log 56212 126090005690048 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-05-19 19:56:21,615 basehttp 56212 126090005690048 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12084
+INFO 2025-05-19 19:56:21,615 basehttp 56212 126090014082752 "GET /static/css/game.css HTTP/1.1" 200 12347
+INFO 2025-05-19 19:56:22,685 basehttp 56212 126090005690048 "GET /game/1/status/ HTTP/1.1" 200 65
+INFO 2025-05-19 19:56:51,683 basehttp 56212 126090005690048 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:57:22,111 basehttp 56212 126090005690048 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:57:52,109 basehttp 56212 126090005690048 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:58:22,109 basehttp 56212 126090005690048 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:58:52,109 basehttp 56212 126090005690048 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:59:21,691 basehttp 56212 126090005690048 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 19:59:23,668 basehttp 56212 126090005690048 "GET /game/1/ HTTP/1.1" 200 32659
+WARNING 2025-05-19 19:59:23,717 log 56212 126090005690048 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-05-19 19:59:23,717 basehttp 56212 126090005690048 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12084
+INFO 2025-05-19 19:59:23,718 basehttp 56212 126090014082752 "GET /static/css/game.css HTTP/1.1" 200 12347
+INFO 2025-05-19 19:59:23,803 basehttp 56212 126090030868160 "GET /media/messages/20250519_191951_4e1d49db.png HTTP/1.1" 200 78777
+INFO 2025-05-19 19:59:23,807 basehttp 56212 126089997297344 "GET /media/messages/20250519_193542_db019fe6.png HTTP/1.1" 200 78777
+INFO 2025-05-19 19:59:23,810 basehttp 56212 126090005690048 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:59:23,811 basehttp 56212 126090022475456 "GET /media/messages/20250519_120301_d3e8d12d.png HTTP/1.1" 200 164672
+INFO 2025-05-19 19:59:23,812 basehttp 56212 126090014082752 "GET /media/messages/20250519_111559_0ed5c21a.png HTTP/1.1" 200 164672
+INFO 2025-05-19 19:59:23,812 basehttp 56212 126090039260864 "GET /media/messages/20250519_131252_a2ceab25.png HTTP/1.1" 200 164672
+INFO 2025-05-19 19:59:23,818 basehttp 56212 126090022475456 "GET /media/messages/20250519_193649_1de17f16.png HTTP/1.1" 200 78777
+INFO 2025-05-19 19:59:23,819 basehttp 56212 126090014082752 "GET /media/messages/20250519_193635_f9016531.png HTTP/1.1" 200 78777
+INFO 2025-05-19 19:59:23,820 basehttp 56212 126089997297344 "GET /media/messages/20250519_195052_11a211d5.png HTTP/1.1" 200 165532
+INFO 2025-05-19 19:59:24,806 basehttp 56212 126090022475456 "GET /game/1/status/ HTTP/1.1" 200 65
+INFO 2025-05-19 19:59:28,792 basehttp 56212 126090022475456 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:59:32,173 basehttp 56212 126090022475456 "GET /game/1/admin/ HTTP/1.1" 200 28650
+WARNING 2025-05-19 19:59:32,212 log 56212 126090022475456 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-05-19 19:59:32,213 basehttp 56212 126090022475456 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12084
+INFO 2025-05-19 19:59:32,215 basehttp 56212 126090014082752 "GET /static/css/game.css HTTP/1.1" 200 12347
+INFO 2025-05-19 19:59:33,289 basehttp 56212 126090022475456 "GET /game/1/status/ HTTP/1.1" 200 65
+INFO 2025-05-19 19:59:50,221 basehttp 56212 126090022475456 "GET /game/1/ HTTP/1.1" 200 32659
+WARNING 2025-05-19 19:59:50,255 log 56212 126090022475456 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-05-19 19:59:50,256 basehttp 56212 126090022475456 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12084
+INFO 2025-05-19 19:59:50,257 basehttp 56212 126090014082752 "GET /static/css/game.css HTTP/1.1" 200 12347
+INFO 2025-05-19 19:59:50,306 basehttp 56212 126090022475456 "GET /media/messages/20250519_193542_db019fe6.png HTTP/1.1" 200 78777
+INFO 2025-05-19 19:59:50,307 basehttp 56212 126090030868160 "GET /media/messages/20250519_191951_4e1d49db.png HTTP/1.1" 200 78777
+INFO 2025-05-19 19:59:50,311 basehttp 56212 126089997297344 "GET /media/messages/20250519_131252_a2ceab25.png HTTP/1.1" 200 164672
+INFO 2025-05-19 19:59:50,312 basehttp 56212 126090014082752 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:59:50,312 basehttp 56212 126090039260864 "GET /media/messages/20250519_120301_d3e8d12d.png HTTP/1.1" 200 164672
+INFO 2025-05-19 19:59:50,313 basehttp 56212 126090005690048 "GET /media/messages/20250519_111559_0ed5c21a.png HTTP/1.1" 200 164672
+INFO 2025-05-19 19:59:50,322 basehttp 56212 126090005690048 "GET /media/messages/20250519_193649_1de17f16.png HTTP/1.1" 200 78777
+INFO 2025-05-19 19:59:50,323 basehttp 56212 126090022475456 "GET /media/messages/20250519_193635_f9016531.png HTTP/1.1" 200 78777
+INFO 2025-05-19 19:59:50,324 basehttp 56212 126090039260864 "GET /media/messages/20250519_195052_11a211d5.png HTTP/1.1" 200 165532
+INFO 2025-05-19 19:59:51,346 basehttp 56212 126090022475456 "GET /game/1/status/ HTTP/1.1" 200 65
+INFO 2025-05-19 19:59:51,542 basehttp 56212 126090022475456 "GET /game/1/info/ HTTP/1.1" 200 8777
+WARNING 2025-05-19 19:59:51,571 log 56212 126090022475456 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-05-19 19:59:51,572 basehttp 56212 126090022475456 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12084
+INFO 2025-05-19 19:59:51,573 basehttp 56212 126090005690048 "GET /static/css/game.css HTTP/1.1" 200 12347
+INFO 2025-05-19 19:59:52,641 basehttp 56212 126090022475456 "GET /game/1/status/ HTTP/1.1" 200 65
+INFO 2025-05-19 19:59:54,883 basehttp 56212 126090022475456 "GET /game/1/hand/ HTTP/1.1" 200 11016
+WARNING 2025-05-19 19:59:54,919 log 56212 126090022475456 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-05-19 19:59:54,921 basehttp 56212 126090022475456 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12084
+INFO 2025-05-19 19:59:54,922 basehttp 56212 126090005690048 "GET /static/css/game.css HTTP/1.1" 200 12347
+INFO 2025-05-19 19:59:56,013 basehttp 56212 126090005690048 "GET /game/1/status/ HTTP/1.1" 200 65
+INFO 2025-05-19 19:59:56,040 basehttp 56212 126090022475456 "GET /game/1/ HTTP/1.1" 200 32659
+WARNING 2025-05-19 19:59:56,070 log 56212 126090022475456 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-05-19 19:59:56,071 basehttp 56212 126090022475456 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12084
+INFO 2025-05-19 19:59:56,074 basehttp 56212 126090005690048 "GET /static/css/game.css HTTP/1.1" 200 12347
+INFO 2025-05-19 19:59:56,135 basehttp 56212 126090030868160 "GET /media/messages/20250519_193542_db019fe6.png HTTP/1.1" 200 78777
+INFO 2025-05-19 19:59:56,139 basehttp 56212 126090022475456 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 19:59:56,139 basehttp 56212 126090039260864 "GET /media/messages/20250519_191951_4e1d49db.png HTTP/1.1" 200 78777
+INFO 2025-05-19 19:59:56,140 basehttp 56212 126090014082752 "GET /media/messages/20250519_120301_d3e8d12d.png HTTP/1.1" 200 164672
+INFO 2025-05-19 19:59:56,141 basehttp 56212 126090005690048 "GET /media/messages/20250519_111559_0ed5c21a.png HTTP/1.1" 200 164672
+INFO 2025-05-19 19:59:56,141 basehttp 56212 126089997297344 "GET /media/messages/20250519_131252_a2ceab25.png HTTP/1.1" 200 164672
+INFO 2025-05-19 19:59:56,152 basehttp 56212 126090039260864 "GET /media/messages/20250519_193635_f9016531.png HTTP/1.1" 200 78777
+INFO 2025-05-19 19:59:56,153 basehttp 56212 126090030868160 "GET /media/messages/20250519_193649_1de17f16.png HTTP/1.1" 200 78777
+INFO 2025-05-19 19:59:56,153 basehttp 56212 126089997297344 "GET /media/messages/20250519_195052_11a211d5.png HTTP/1.1" 200 165532
+INFO 2025-05-19 19:59:57,010 basehttp 56212 126090030868160 "GET /game/1/info/ HTTP/1.1" 200 8777
+WARNING 2025-05-19 19:59:57,049 log 56212 126090030868160 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-05-19 19:59:57,051 basehttp 56212 126090030868160 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12084
+INFO 2025-05-19 19:59:57,051 basehttp 56212 126090039260864 "GET /static/css/game.css HTTP/1.1" 200 12347
+INFO 2025-05-19 19:59:58,114 basehttp 56212 126090030868160 "GET /game/1/status/ HTTP/1.1" 200 65
+INFO 2025-05-19 20:00:06,907 basehttp 56212 126089987856064 "GET /game/1/info/ HTTP/1.1" 302 0
+ERROR 2025-05-19 20:00:06,959 log 56212 126089987856064 Internal Server Error: /login/
+Traceback (most recent call last):
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/urls/base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'game_timer' with arguments '('',)' not found. 1 pattern(s) tried: ['game/(?P<game_id>[0-9]+)/timer/\\Z']
+ERROR 2025-05-19 20:00:06,962 basehttp 56212 126089987856064 "GET /login/?next=/game/1/info/ HTTP/1.1" 500 171454
+INFO 2025-05-19 20:00:07,099 basehttp 56212 126089987856064 "GET /favicon.ico HTTP/1.1" 302 0
+WARNING 2025-05-19 20:00:07,116 basehttp 56212 126089987856064 "GET /static/img/favicon.ico HTTP/1.1" 404 1972
+INFO 2025-05-19 20:00:27,113 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:00:57,111 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+ERROR 2025-05-19 20:01:08,671 log 56212 126089987856064 Internal Server Error: /login/
+Traceback (most recent call last):
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/urls/base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'game_timer' with arguments '('',)' not found. 1 pattern(s) tried: ['game/(?P<game_id>[0-9]+)/timer/\\Z']
+ERROR 2025-05-19 20:01:08,673 basehttp 56212 126089987856064 "GET /login/ HTTP/1.1" 500 170837
+INFO 2025-05-19 20:01:18,926 basehttp 56212 126089987856064 "GET / HTTP/1.1" 302 0
+ERROR 2025-05-19 20:01:18,996 log 56212 126089987856064 Internal Server Error: /login/
+Traceback (most recent call last):
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/urls/base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'game_timer' with arguments '('',)' not found. 1 pattern(s) tried: ['game/(?P<game_id>[0-9]+)/timer/\\Z']
+ERROR 2025-05-19 20:01:18,998 basehttp 56212 126089987856064 "GET /login/?next=/ HTTP/1.1" 500 171202
+INFO 2025-05-19 20:01:27,111 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:01:57,111 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:02:27,112 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:02:57,112 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:03:05,340 basehttp 56212 126089987856064 "GET /login/?next=/ HTTP/1.1" 200 5744
+INFO 2025-05-19 20:03:05,407 basehttp 56212 126089987856064 "GET /static/css/game.css HTTP/1.1" 200 12347
+INFO 2025-05-19 20:03:13,261 basehttp 56212 126089987856064 "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-05-19 20:03:13,278 basehttp 56212 126089987856064 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4173
+INFO 2025-05-19 20:03:13,360 basehttp 56212 126089502389952 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2808
+INFO 2025-05-19 20:03:13,361 basehttp 56212 126089987856064 "GET /static/admin/css/base.css HTTP/1.1" 200 22120
+INFO 2025-05-19 20:03:13,361 basehttp 56212 126089493997248 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2025-05-19 20:03:13,361 basehttp 56212 126089485604544 "GET /static/admin/css/login.css HTTP/1.1" 200 951
+INFO 2025-05-19 20:03:13,361 basehttp 56212 126089468819136 "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-05-19 20:03:13,362 basehttp 56212 126089477211840 "GET /static/admin/css/responsive.css HTTP/1.1" 200 16565
+INFO 2025-05-19 20:03:13,372 basehttp 56212 126089477211840 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-05-19 20:03:19,664 basehttp 56212 126089477211840 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-05-19 20:03:19,684 basehttp 56212 126089477211840 "GET /admin/ HTTP/1.1" 200 11067
+INFO 2025-05-19 20:03:19,753 basehttp 56212 126089477211840 "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-05-19 20:03:19,802 basehttp 56212 126089477211840 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-05-19 20:03:19,803 basehttp 56212 126089987856064 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-05-19 20:03:22,392 basehttp 56212 126089477211840 "GET /admin/auth/user/add/ HTTP/1.1" 200 14868
+INFO 2025-05-19 20:03:22,413 basehttp 56212 126089477211840 "GET /static/admin/css/forms.css HTTP/1.1" 200 8525
+INFO 2025-05-19 20:03:22,424 basehttp 56212 126089485604544 "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-05-19 20:03:22,429 basehttp 56212 126089493997248 "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-05-19 20:03:22,429 basehttp 56212 126089502389952 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+INFO 2025-05-19 20:03:22,433 basehttp 56212 126089485604544 "GET /static/admin/css/unusable_password_field.css HTTP/1.1" 200 663
+INFO 2025-05-19 20:03:22,436 basehttp 56212 126089987856064 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-05-19 20:03:22,436 basehttp 56212 126089468819136 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-05-19 20:03:22,444 basehttp 56212 126089987856064 "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-05-19 20:03:22,444 basehttp 56212 126089493997248 "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-05-19 20:03:22,445 basehttp 56212 126089502389952 "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-05-19 20:03:22,446 basehttp 56212 126089468819136 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-05-19 20:03:22,459 basehttp 56212 126089477211840 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-05-19 20:03:22,479 basehttp 56212 126089485604544 "GET /static/admin/css/widgets.css HTTP/1.1" 200 11991
+INFO 2025-05-19 20:03:22,506 basehttp 56212 126089477211840 "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-05-19 20:03:22,525 basehttp 56212 126089485604544 "GET /static/admin/js/unusable_password_field.js HTTP/1.1" 200 1480
+INFO 2025-05-19 20:03:27,112 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:03:32,391 basehttp 56212 126089485604544 "POST /admin/auth/user/add/ HTTP/1.1" 200 15227
+INFO 2025-05-19 20:03:32,422 basehttp 56212 126089485604544 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-05-19 20:03:54,925 basehttp 56212 126089485604544 "POST /admin/auth/user/add/ HTTP/1.1" 302 0
+INFO 2025-05-19 20:03:54,965 basehttp 56212 126089485604544 "GET /admin/auth/user/3/change/ HTTP/1.1" 200 25945
+INFO 2025-05-19 20:03:55,031 basehttp 56212 126089987856064 "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 200 15709
+INFO 2025-05-19 20:03:55,033 basehttp 56212 126089477211840 "GET /static/admin/js/calendar.js HTTP/1.1" 200 9141
+INFO 2025-05-19 20:03:55,035 basehttp 56212 126089502389952 "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19319
+INFO 2025-05-19 20:03:55,037 basehttp 56212 126089493997248 "GET /static/admin/js/SelectBox.js HTTP/1.1" 200 4530
+INFO 2025-05-19 20:03:55,037 basehttp 56212 126089485604544 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-05-19 20:03:55,101 basehttp 56212 126089485604544 "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+INFO 2025-05-19 20:03:55,156 basehttp 56212 126089477211840 "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 200 1086
+INFO 2025-05-19 20:03:55,158 basehttp 56212 126089485604544 "GET /static/admin/img/search.svg HTTP/1.1" 200 458
+INFO 2025-05-19 20:03:55,158 basehttp 56212 126089502389952 "GET /static/admin/img/icon-clock.svg HTTP/1.1" 200 677
+INFO 2025-05-19 20:03:55,158 basehttp 56212 126089493997248 "GET /static/admin/img/selector-icons.svg HTTP/1.1" 200 3291
+INFO 2025-05-19 20:03:57,111 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:03:59,018 basehttp 56212 126089485604544 "GET /admin/auth/user/add/ HTTP/1.1" 200 14868
+INFO 2025-05-19 20:04:01,912 basehttp 56212 126089485604544 "GET / HTTP/1.1" 200 7690
+WARNING 2025-05-19 20:04:07,768 base 56212 126089485604544 Method Not Allowed (GET): /logout/
+WARNING 2025-05-19 20:04:07,769 log 56212 126089485604544 Method Not Allowed: /logout/
+WARNING 2025-05-19 20:04:07,770 basehttp 56212 126089485604544 "GET /logout/ HTTP/1.1" 405 0
+INFO 2025-05-19 20:04:27,113 basehttp 56212 126090030868160 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:04:32,906 autoreload 56212 126090180889472 /home/bussiere/Workspace/CustomDocGame/alice_is_missing/app/game/urls.py changed, reloading.
+INFO 2025-05-19 20:04:33,339 autoreload 63184 126100344335232 Watching for file changes with StatReloader
+INFO 2025-05-19 20:04:57,124 basehttp 63184 126100272309952 "GET /game/1/timer/ HTTP/1.1" 200 46
+WARNING 2025-05-19 20:04:58,664 base 63184 126100263917248 Method Not Allowed (GET): /logout/
+WARNING 2025-05-19 20:04:58,665 log 63184 126100263917248 Method Not Allowed: /logout/
+WARNING 2025-05-19 20:04:58,666 basehttp 63184 126100263917248 "GET /logout/ HTTP/1.1" 405 0
+INFO 2025-05-19 20:05:02,656 basehttp 63184 126100263917248 "GET / HTTP/1.1" 200 7690
+INFO 2025-05-19 20:05:02,696 basehttp 63184 126100263917248 "GET /static/css/game.css HTTP/1.1" 200 12347
+INFO 2025-05-19 20:05:02,863 basehttp 63184 126100263917248 "GET /favicon.ico HTTP/1.1" 302 0
+WARNING 2025-05-19 20:05:02,878 basehttp 63184 126100263917248 "GET /static/img/favicon.ico HTTP/1.1" 404 1972
+WARNING 2025-05-19 20:05:04,918 base 63184 126100255524544 Method Not Allowed (GET): /logout/
+WARNING 2025-05-19 20:05:04,919 log 63184 126100255524544 Method Not Allowed: /logout/
+WARNING 2025-05-19 20:05:04,919 basehttp 63184 126100255524544 "GET /logout/ HTTP/1.1" 405 0
+INFO 2025-05-19 20:05:27,109 basehttp 63184 126100272309952 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:05:30,229 autoreload 63184 126100344335232 /home/bussiere/Workspace/CustomDocGame/alice_is_missing/app/game/views.py changed, reloading.
+INFO 2025-05-19 20:05:30,633 autoreload 63695 135312585657216 Watching for file changes with StatReloader
+INFO 2025-05-19 20:05:47,630 basehttp 63695 135312513689280 "GET / HTTP/1.1" 200 7690
+WARNING 2025-05-19 20:05:49,119 base 63695 135312513689280 Method Not Allowed (GET): /logout/
+WARNING 2025-05-19 20:05:49,119 log 63695 135312513689280 Method Not Allowed: /logout/
+WARNING 2025-05-19 20:05:49,120 basehttp 63695 135312513689280 "GET /logout/ HTTP/1.1" 405 0
+INFO 2025-05-19 20:05:57,112 basehttp 63695 135312495855296 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:06:27,111 basehttp 63695 135312495855296 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:06:33,046 basehttp 63695 135312513689280 "GET / HTTP/1.1" 200 7948
+INFO 2025-05-19 20:06:34,242 basehttp 63695 135312513689280 "POST /logout/ HTTP/1.1" 302 0
+INFO 2025-05-19 20:06:34,246 basehttp 63695 135312513689280 "GET / HTTP/1.1" 302 0
+INFO 2025-05-19 20:06:34,293 basehttp 63695 135312513689280 "GET /login/?next=/ HTTP/1.1" 200 5744
+INFO 2025-05-19 20:06:42,525 basehttp 63695 135312513689280 "POST /login/?next=/ HTTP/1.1" 302 0
+INFO 2025-05-19 20:06:42,534 basehttp 63695 135312513689280 "GET / HTTP/1.1" 200 7026
+INFO 2025-05-19 20:06:55,863 basehttp 63695 135312513689280 "POST /join-game/ HTTP/1.1" 302 0
+INFO 2025-05-19 20:06:55,878 basehttp 63695 135312513689280 "GET / HTTP/1.1" 200 7497
+INFO 2025-05-19 20:06:57,111 basehttp 63695 135312495855296 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:07:04,318 basehttp 63695 135312513689280 "POST /join-game/ HTTP/1.1" 302 0
+INFO 2025-05-19 20:07:04,331 basehttp 63695 135312513689280 "GET / HTTP/1.1" 200 7497
+INFO 2025-05-19 20:07:27,112 basehttp 63695 135312495855296 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:07:58,109 basehttp 63695 135312495855296 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:08:28,109 basehttp 63695 135312495855296 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:09:24,110 basehttp 63695 135312495855296 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:10:24,114 basehttp 63695 135312495855296 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:11:24,111 basehttp 63695 135312495855296 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:12:24,109 basehttp 63695 135312495855296 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:13:24,112 basehttp 63695 135312495855296 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:13:35,922 basehttp 63695 135312495855296 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:13:37,986 basehttp 63695 135312495855296 "GET /game/1/hand/ HTTP/1.1" 200 10710
+INFO 2025-05-19 20:13:38,042 basehttp 63695 135312487462592 "GET /static/css/cards.css HTTP/1.1" 200 2625
+WARNING 2025-05-19 20:13:38,045 log 63695 135312139351744 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+INFO 2025-05-19 20:13:38,046 basehttp 63695 135312495855296 "GET /static/css/game.css HTTP/1.1" 200 12347
+WARNING 2025-05-19 20:13:38,047 basehttp 63695 135312139351744 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12084
+INFO 2025-05-19 20:13:38,184 basehttp 63695 135312495855296 "GET /favicon.ico HTTP/1.1" 302 0
+WARNING 2025-05-19 20:13:38,199 basehttp 63695 135312495855296 "GET /static/img/favicon.ico HTTP/1.1" 404 1972
+INFO 2025-05-19 20:13:39,145 basehttp 63695 135312139351744 "GET /game/1/status/ HTTP/1.1" 200 65
+INFO 2025-05-19 20:13:48,285 basehttp 63695 135312139351744 "GET /game/1/hand/ HTTP/1.1" 200 10710
+WARNING 2025-05-19 20:13:48,312 log 63695 135312139351744 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-05-19 20:13:48,315 basehttp 63695 135312139351744 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12084
+INFO 2025-05-19 20:13:48,315 basehttp 63695 135312495855296 "GET /static/css/cards.css HTTP/1.1" 200 2625
+INFO 2025-05-19 20:13:48,316 basehttp 63695 135312487462592 "GET /static/css/game.css HTTP/1.1" 200 12347
+INFO 2025-05-19 20:13:48,404 basehttp 63695 135312139351744 "GET /favicon.ico HTTP/1.1" 302 0
+WARNING 2025-05-19 20:13:48,413 basehttp 63695 135312139351744 "GET /static/img/favicon.ico HTTP/1.1" 404 1972
+INFO 2025-05-19 20:13:49,385 basehttp 63695 135312487462592 "GET /game/1/status/ HTTP/1.1" 200 65
+INFO 2025-05-19 20:14:18,383 basehttp 63695 135312487462592 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:14:48,383 basehttp 63695 135312487462592 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:15:18,382 basehttp 63695 135312487462592 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:15:48,383 basehttp 63695 135312487462592 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:16:18,382 basehttp 63695 135312487462592 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:16:48,383 basehttp 63695 135312513689280 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:17:18,382 basehttp 63695 135312513689280 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:17:48,382 basehttp 63695 135312513689280 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:18:18,382 basehttp 63695 135312513689280 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:18:48,384 basehttp 63695 135312513689280 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:19:18,383 basehttp 63695 135312513689280 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:19:48,382 basehttp 63695 135312513689280 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:20:18,382 basehttp 63695 135312513689280 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:20:49,110 basehttp 63695 135312513689280 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:21:19,112 basehttp 63695 135312513689280 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:22:20,108 basehttp 63695 135312513689280 "GET /game/1/timer/ HTTP/1.1" 302 0
+INFO 2025-05-19 20:22:20,121 basehttp 63695 135312513689280 "GET /login/?next=/game/1/timer/ HTTP/1.1" 200 5801
+INFO 2025-05-19 20:23:21,105 basehttp 63695 135312513689280 "GET /game/1/timer/ HTTP/1.1" 302 0
+INFO 2025-05-19 20:23:21,112 basehttp 63695 135312513689280 "GET /login/?next=/game/1/timer/ HTTP/1.1" 200 5805
+INFO 2025-05-19 20:24:05,977 basehttp 63695 135312513689280 "GET /game/1/timer/ HTTP/1.1" 302 0
+INFO 2025-05-19 20:24:06,001 basehttp 63695 135312513689280 "GET /login/?next=/game/1/timer/ HTTP/1.1" 200 5805
+INFO 2025-05-19 20:24:07,928 basehttp 63695 135312513689280 "GET /game/1/hand/ HTTP/1.1" 302 0
+INFO 2025-05-19 20:24:07,950 basehttp 63695 135312513689280 "GET /login/?next=/game/1/hand/ HTTP/1.1" 200 5805
+WARNING 2025-05-19 20:24:08,052 log 63695 135312513689280 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-05-19 20:24:08,054 basehttp 63695 135312513689280 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12084
+INFO 2025-05-19 20:24:08,055 basehttp 63695 135312505296576 "GET /static/css/game.css HTTP/1.1" 200 12347
+INFO 2025-05-19 20:24:08,055 basehttp 63695 135312495855296 "GET /static/css/cards.css HTTP/1.1" 200 2625
+INFO 2025-05-19 20:24:08,144 basehttp 63695 135312505296576 "GET /favicon.ico HTTP/1.1" 302 0
+WARNING 2025-05-19 20:24:08,159 basehttp 63695 135312505296576 "GET /static/img/favicon.ico HTTP/1.1" 404 1972
+INFO 2025-05-19 20:24:19,796 basehttp 63695 135312495855296 "POST /login/?next=/game/1/hand/ HTTP/1.1" 302 0
+INFO 2025-05-19 20:24:19,806 basehttp 63695 135312495855296 "GET /game/1/hand/ HTTP/1.1" 200 12221
+WARNING 2025-05-19 20:24:19,891 log 63695 135312495855296 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-05-19 20:24:19,891 basehttp 63695 135312495855296 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12084
+INFO 2025-05-19 20:24:19,894 basehttp 63695 135312513689280 "GET /static/css/game.css HTTP/1.1" 200 12347
+INFO 2025-05-19 20:24:19,895 basehttp 63695 135312505296576 "GET /static/css/cards.css HTTP/1.1" 200 2625
+INFO 2025-05-19 20:24:20,962 basehttp 63695 135312495855296 "GET /game/1/status/ HTTP/1.1" 200 65
+INFO 2025-05-19 20:24:22,896 basehttp 63695 135312495855296 "GET /game/1/info/ HTTP/1.1" 200 10353
+WARNING 2025-05-19 20:24:22,940 log 63695 135312495855296 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-05-19 20:24:22,943 basehttp 63695 135312495855296 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12084
+INFO 2025-05-19 20:24:22,943 basehttp 63695 135312505296576 "GET /static/css/cards.css HTTP/1.1" 200 2625
+INFO 2025-05-19 20:24:22,944 basehttp 63695 135312513689280 "GET /static/css/game.css HTTP/1.1" 200 12347
+INFO 2025-05-19 20:24:24,014 basehttp 63695 135312495855296 "GET /game/1/status/ HTTP/1.1" 200 65
+INFO 2025-05-19 20:24:24,874 basehttp 63695 135312495855296 "GET /game/1/ HTTP/1.1" 200 34235
+WARNING 2025-05-19 20:24:24,921 log 63695 135312495855296 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-05-19 20:24:24,923 basehttp 63695 135312495855296 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12084
+INFO 2025-05-19 20:24:24,924 basehttp 63695 135312505296576 "GET /static/css/cards.css HTTP/1.1" 200 2625
+INFO 2025-05-19 20:24:24,924 basehttp 63695 135312513689280 "GET /static/css/game.css HTTP/1.1" 200 12347
+INFO 2025-05-19 20:24:24,987 basehttp 63695 135312513689280 "GET /media/messages/20250519_111559_0ed5c21a.png HTTP/1.1" 200 164672
+INFO 2025-05-19 20:24:24,989 basehttp 63695 135312130959040 "GET /media/messages/20250519_193542_db019fe6.png HTTP/1.1" 200 78777
+INFO 2025-05-19 20:24:24,989 basehttp 63695 135312495855296 "GET /game/1/messages/?after=44 HTTP/1.1" 200 16
+INFO 2025-05-19 20:24:24,989 basehttp 63695 135312139351744 "GET /media/messages/20250519_191951_4e1d49db.png HTTP/1.1" 200 78777
+INFO 2025-05-19 20:24:24,990 basehttp 63695 135312505296576 "GET /media/messages/20250519_120301_d3e8d12d.png HTTP/1.1" 200 164672
+INFO 2025-05-19 20:24:24,991 basehttp 63695 135312487462592 "GET /media/messages/20250519_131252_a2ceab25.png HTTP/1.1" 200 164672
+INFO 2025-05-19 20:24:25,014 basehttp 63695 135312130959040 "GET /media/messages/20250519_193635_f9016531.png HTTP/1.1" 200 78777
+INFO 2025-05-19 20:24:25,015 basehttp 63695 135312487462592 "GET /media/messages/20250519_193649_1de17f16.png HTTP/1.1" 200 78777
+INFO 2025-05-19 20:24:25,017 basehttp 63695 135312139351744 "GET /media/messages/20250519_195052_11a211d5.png HTTP/1.1" 200 165532
+INFO 2025-05-19 20:24:26,023 basehttp 63695 135312139351744 "GET /game/1/status/ HTTP/1.1" 200 65
+INFO 2025-05-19 20:24:29,696 views 63695 135312139351744 Message 45 created by player 1 in game 1.
+INFO 2025-05-19 20:24:29,697 basehttp 63695 135312139351744 "POST /game/1/messages/send/ HTTP/1.1" 200 175
+INFO 2025-05-19 20:24:29,974 basehttp 63695 135312139351744 "GET /game/1/messages/?after=45 HTTP/1.1" 200 16
+INFO 2025-05-19 20:24:34,974 basehttp 63695 135312139351744 "GET /game/1/messages/?after=45 HTTP/1.1" 200 16
+INFO 2025-05-19 20:24:40,110 basehttp 63695 135312139351744 "GET /game/1/messages/?after=45 HTTP/1.1" 200 16
+INFO 2025-05-19 20:24:45,110 basehttp 63695 135312139351744 "GET /game/1/messages/?after=45 HTTP/1.1" 200 16
+INFO 2025-05-19 20:24:50,110 basehttp 63695 135312139351744 "GET /game/1/messages/?after=45 HTTP/1.1" 200 16
+INFO 2025-05-19 20:24:55,117 basehttp 63695 135312139351744 "GET /game/1/messages/?after=45 HTTP/1.1" 200 16
+INFO 2025-05-19 20:24:55,118 basehttp 63695 135312130959040 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:25:00,111 basehttp 63695 135312130959040 "GET /game/1/messages/?after=45 HTTP/1.1" 200 16
+INFO 2025-05-19 20:25:05,110 basehttp 63695 135312130959040 "GET /game/1/messages/?after=45 HTTP/1.1" 200 16
+INFO 2025-05-19 20:25:10,111 basehttp 63695 135312130959040 "GET /game/1/messages/?after=45 HTTP/1.1" 200 16
+INFO 2025-05-19 20:25:15,110 basehttp 63695 135312130959040 "GET /game/1/messages/?after=45 HTTP/1.1" 200 16
+INFO 2025-05-19 20:25:20,110 basehttp 63695 135312130959040 "GET /game/1/messages/?after=45 HTTP/1.1" 200 16
+INFO 2025-05-19 20:25:25,118 basehttp 63695 135312130959040 "GET /game/1/messages/?after=45 HTTP/1.1" 200 16
+INFO 2025-05-19 20:25:25,119 basehttp 63695 135312139351744 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:25:30,115 basehttp 63695 135312139351744 "GET /game/1/messages/?after=45 HTTP/1.1" 200 16
+INFO 2025-05-19 20:25:35,110 basehttp 63695 135312139351744 "GET /game/1/messages/?after=45 HTTP/1.1" 200 16
+INFO 2025-05-19 20:25:55,110 basehttp 63695 135312139351744 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:26:24,118 basehttp 63695 135312139351744 "GET /game/1/messages/?after=45 HTTP/1.1" 200 16
+INFO 2025-05-19 20:26:25,110 basehttp 63695 135312139351744 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:26:55,110 basehttp 63695 135312139351744 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:26:57,940 autoreload 63695 135312585657216 /home/bussiere/Workspace/CustomDocGame/alice_is_missing/app/aliceismissing/settings.py changed, reloading.
+INFO 2025-05-19 20:26:58,339 autoreload 73848 124373381557120 Watching for file changes with StatReloader
+INFO 2025-05-19 20:27:16,536 autoreload 74067 132713673276288 Watching for file changes with StatReloader
+INFO 2025-05-19 20:27:24,122 basehttp 74067 132713601296064 "GET /game/1/messages/?after=45 HTTP/1.1" 200 16
+INFO 2025-05-19 20:27:25,111 basehttp 74067 132713601296064 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:28:00,561 autoreload 74444 135196090248064 Watching for file changes with StatReloader
+INFO 2025-05-19 20:28:04,261 basehttp 74444 135196016895680 "GET /game/1/ HTTP/1.1" 302 0
+INFO 2025-05-19 20:28:04,284 basehttp 74444 135196016895680 "GET /login/?next=/game/1/ HTTP/1.1" 200 5805
+INFO 2025-05-19 20:28:04,501 basehttp 74444 135196008502976 "GET /static/css/cards.css HTTP/1.1" 200 2625
+INFO 2025-05-19 20:28:04,502 basehttp 74444 135196016895680 "GET /static/css/game.css HTTP/1.1" 200 12347
+INFO 2025-05-19 20:28:04,834 basehttp 74444 135196016895680 "GET /favicon.ico HTTP/1.1" 302 0
+WARNING 2025-05-19 20:28:04,895 basehttp 74444 135196016895680 "GET /static/img/favicon.ico HTTP/1.1" 404 1975
+INFO 2025-05-19 20:28:24,119 basehttp 74444 135195999061696 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:28:24,120 basehttp 74444 135196016895680 "GET /game/1/messages/?after=45 HTTP/1.1" 200 16
+INFO 2025-05-19 20:29:24,117 basehttp 74444 135196016895680 "GET /game/1/messages/?after=45 HTTP/1.1" 200 16
+INFO 2025-05-19 20:29:24,117 basehttp 74444 135195999061696 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:30:14,418 basehttp 74444 135195990668992 "GET / HTTP/1.1" 200 8288
+INFO 2025-05-19 20:30:14,470 basehttp 74444 135195990668992 "GET /static/css/game.css HTTP/1.1" 200 13268
+INFO 2025-05-19 20:30:14,472 basehttp 74444 135195638363840 "GET /static/css/cards.css HTTP/1.1" 200 2625
+INFO 2025-05-19 20:30:14,570 basehttp 74444 135195990668992 "GET /favicon.ico HTTP/1.1" 302 0
+WARNING 2025-05-19 20:30:14,579 basehttp 74444 135195990668992 "GET /static/img/favicon.ico HTTP/1.1" 404 1972
+INFO 2025-05-19 20:30:22,442 basehttp 74444 135195999061696 "GET /game/1/messages/?after=45 HTTP/1.1" 200 16
+INFO 2025-05-19 20:30:22,442 basehttp 74444 135196016895680 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:30:24,901 basehttp 74444 135196016895680 "GET /game/1/info/ HTTP/1.1" 200 10353
+WARNING 2025-05-19 20:30:24,947 log 74444 135196016895680 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-05-19 20:30:24,948 basehttp 74444 135196016895680 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12084
+INFO 2025-05-19 20:30:24,955 basehttp 74444 135195990668992 "GET /static/css/cards.css HTTP/1.1" 200 2625
+INFO 2025-05-19 20:30:24,956 basehttp 74444 135195999061696 "GET /static/css/game.css HTTP/1.1" 200 13268
+INFO 2025-05-19 20:30:26,030 basehttp 74444 135196016895680 "GET /game/1/status/ HTTP/1.1" 200 65
+INFO 2025-05-19 20:30:38,809 basehttp 74444 135195638363840 "POST /join-game/ HTTP/1.1" 302 0
+INFO 2025-05-19 20:30:38,829 basehttp 74444 135195638363840 "GET / HTTP/1.1" 200 8759
+INFO 2025-05-19 20:30:38,894 basehttp 74444 135195638363840 "GET /static/css/game.css HTTP/1.1" 304 0
+INFO 2025-05-19 20:30:46,593 basehttp 74444 135195638363840 "POST /join-game/ HTTP/1.1" 302 0
+INFO 2025-05-19 20:30:46,606 basehttp 74444 135195638363840 "GET / HTTP/1.1" 200 8759
+INFO 2025-05-19 20:30:46,675 basehttp 74444 135195638363840 "GET /static/css/game.css HTTP/1.1" 304 0
+INFO 2025-05-19 20:30:53,107 basehttp 74444 135195638363840 "POST /join-game/ HTTP/1.1" 302 0
+INFO 2025-05-19 20:30:53,120 basehttp 74444 135195638363840 "GET / HTTP/1.1" 200 8759
+INFO 2025-05-19 20:30:53,187 basehttp 74444 135195638363840 "GET /static/css/game.css HTTP/1.1" 304 0
+INFO 2025-05-19 20:30:55,029 basehttp 74444 135196016895680 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:31:10,313 basehttp 74444 135195638363840 "GET /new-game/ HTTP/1.1" 200 6832
+INFO 2025-05-19 20:31:10,340 basehttp 74444 135195638363840 "GET /static/css/game.css HTTP/1.1" 304 0
+INFO 2025-05-19 20:31:21,939 basehttp 74444 135195638363840 "POST /new-game/ HTTP/1.1" 302 0
+INFO 2025-05-19 20:31:21,954 basehttp 74444 135195638363840 "GET /game/2/setup/ HTTP/1.1" 200 7994
+INFO 2025-05-19 20:31:22,023 basehttp 74444 135195638363840 "GET /static/css/game.css HTTP/1.1" 304 0
+INFO 2025-05-19 20:31:25,027 basehttp 74444 135196016895680 "GET /game/1/timer/ HTTP/1.1" 200 46
+INFO 2025-05-19 20:31:25,214 basehttp 74444 135195638363840 "GET /game/2/select-character/ HTTP/1.1" 200 14496
+INFO 2025-05-19 20:31:35,687 basehttp 74444 135195638363840 "POST /game/2/select-character/ HTTP/1.1" 302 0
+INFO 2025-05-19 20:31:35,701 basehttp 74444 135195638363840 "GET /game/2/setup/ HTTP/1.1" 200 7807
+INFO 2025-05-19 20:31:35,773 basehttp 74444 135195638363840 "GET /static/css/game.css HTTP/1.1" 304 0
+INFO 2025-05-19 20:31:51,029 basehttp 74444 135196016895680 "GET /game/1/ HTTP/1.1" 200 34363
+WARNING 2025-05-19 20:31:51,070 log 74444 135196016895680 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-05-19 20:31:51,070 basehttp 74444 135196016895680 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12084
+INFO 2025-05-19 20:31:51,097 basehttp 74444 135195999061696 "GET /static/css/cards.css HTTP/1.1" 200 2625
+INFO 2025-05-19 20:31:51,098 basehttp 74444 135195990668992 "GET /static/css/game.css HTTP/1.1" 200 13268
+INFO 2025-05-19 20:31:51,161 basehttp 74444 135195990668992 "GET /media/messages/20250519_111559_0ed5c21a.png HTTP/1.1" 200 164672
+INFO 2025-05-19 20:31:51,162 basehttp 74444 135195604793024 "GET /media/messages/20250519_193542_db019fe6.png HTTP/1.1" 200 78777
+INFO 2025-05-19 20:31:51,162 basehttp 74444 135196016895680 "GET /game/1/messages/?after=45 HTTP/1.1" 200 16
+INFO 2025-05-19 20:31:51,162 basehttp 74444 135195613185728 "GET /media/messages/20250519_191951_4e1d49db.png HTTP/1.1" 200 78777
+INFO 2025-05-19 20:31:51,162 basehttp 74444 135195999061696 "GET /media/messages/20250519_120301_d3e8d12d.png HTTP/1.1" 200 164672
+INFO 2025-05-19 20:31:51,163 basehttp 74444 135195621578432 "GET /media/messages/20250519_131252_a2ceab25.png HTTP/1.1" 200 164672
+INFO 2025-05-19 20:31:51,184 basehttp 74444 135195613185728 "GET /media/messages/20250519_193649_1de17f16.png HTTP/1.1" 200 78777
+INFO 2025-05-19 20:31:51,185 basehttp 74444 135195621578432 "GET /media/messages/20250519_193635_f9016531.png HTTP/1.1" 200 78777
+INFO 2025-05-19 20:31:51,186 basehttp 74444 135195604793024 "GET /media/messages/20250519_195052_11a211d5.png HTTP/1.1" 200 165532
+INFO 2025-05-19 20:31:52,202 basehttp 74444 135195621578432 "GET /game/1/status/ HTTP/1.1" 200 65
+INFO 2025-05-19 20:31:56,151 basehttp 74444 135195621578432 "GET /game/1/messages/?after=45 HTTP/1.1" 200 16
+INFO 2025-05-19 20:31:57,461 basehttp 74444 135195621578432 "GET /game/1/hand/ HTTP/1.1" 200 12221
+WARNING 2025-05-19 20:31:57,504 log 74444 135195621578432 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-05-19 20:31:57,507 basehttp 74444 135195621578432 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12084
+INFO 2025-05-19 20:31:57,508 basehttp 74444 135195613185728 "GET /static/css/cards.css HTTP/1.1" 200 2625
+INFO 2025-05-19 20:31:57,509 basehttp 74444 135196016895680 "GET /static/css/game.css HTTP/1.1" 200 13268
+INFO 2025-05-19 20:31:58,129 basehttp 74444 135195613185728 "GET /game/1/info/ HTTP/1.1" 200 10353
+WARNING 2025-05-19 20:31:58,162 log 74444 135195613185728 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-05-19 20:31:58,165 basehttp 74444 135195613185728 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12084
+INFO 2025-05-19 20:31:58,166 basehttp 74444 135196016895680 "GET /static/css/cards.css HTTP/1.1" 200 2625
+INFO 2025-05-19 20:31:58,167 basehttp 74444 135195621578432 "GET /static/css/game.css HTTP/1.1" 200 13268
+INFO 2025-05-19 20:31:59,258 basehttp 74444 135195613185728 "GET /game/1/status/ HTTP/1.1" 200 65
+ERROR 2025-05-19 20:32:01,528 log 74444 135195613185728 Internal Server Error: /game/1/end/
+Traceback (most recent call last):
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/.pyenv/versions/3.12.9/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bussiere/Workspace/CustomDocGame/alice_is_missing/app/game/views.py", line 1132, in end_game
+    if request.user != game.host:
+                       ^^^^^^^^^
+AttributeError: 'Game' object has no attribute 'host'
+ERROR 2025-05-19 20:32:01,530 basehttp 74444 135195613185728 "POST /game/1/end/ HTTP/1.1" 500 75717
+WARNING 2025-05-19 20:32:01,562 log 74444 135195613185728 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-05-19 20:32:01,562 basehttp 74444 135195613185728 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12084
+INFO 2025-05-19 20:32:07,591 basehttp 74444 135195613185728 "GET / HTTP/1.1" 200 9858
+WARNING 2025-05-19 20:32:07,634 log 74444 135195613185728 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+INFO 2025-05-19 20:32:07,636 basehttp 74444 135196016895680 "GET /static/css/cards.css HTTP/1.1" 200 2625
+WARNING 2025-05-19 20:32:07,636 basehttp 74444 135195613185728 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12084
+INFO 2025-05-19 20:32:07,637 basehttp 74444 135195621578432 "GET /static/css/game.css HTTP/1.1" 200 13268
+INFO 2025-05-19 20:32:14,345 basehttp 74444 135195613185728 "POST /join-game/ HTTP/1.1" 302 0
+INFO 2025-05-19 20:32:14,360 basehttp 74444 135195613185728 "GET /game/2/setup/ HTTP/1.1" 200 7288
+WARNING 2025-05-19 20:32:14,434 log 74444 135195613185728 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-05-19 20:32:14,435 basehttp 74444 135195613185728 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12084
+INFO 2025-05-19 20:32:14,441 basehttp 74444 135196016895680 "GET /static/css/cards.css HTTP/1.1" 200 2625
+INFO 2025-05-19 20:32:14,442 basehttp 74444 135195621578432 "GET /static/css/game.css HTTP/1.1" 200 13268
+INFO 2025-05-19 20:32:17,118 basehttp 74444 135195613185728 "GET /game/2/select-character/ HTTP/1.1" 200 14316
+WARNING 2025-05-19 20:32:17,150 log 74444 135195613185728 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-05-19 20:32:17,153 basehttp 74444 135195613185728 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12084
+INFO 2025-05-19 20:32:17,154 basehttp 74444 135196016895680 "GET /static/css/cards.css HTTP/1.1" 200 2625
+INFO 2025-05-19 20:32:17,154 basehttp 74444 135195621578432 "GET /static/css/game.css HTTP/1.1" 200 13268
+INFO 2025-05-19 20:32:25,135 basehttp 74444 135195613185728 "POST /game/2/select-character/ HTTP/1.1" 302 0
+INFO 2025-05-19 20:32:25,149 basehttp 74444 135195613185728 "GET /game/2/setup/ HTTP/1.1" 200 7110
+WARNING 2025-05-19 20:32:25,229 log 74444 135195613185728 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-05-19 20:32:25,232 basehttp 74444 135195613185728 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12084
+INFO 2025-05-19 20:32:25,233 basehttp 74444 135195621578432 "GET /static/css/cards.css HTTP/1.1" 200 2625
+INFO 2025-05-19 20:32:25,233 basehttp 74444 135196016895680 "GET /static/css/game.css HTTP/1.1" 200 13268
+INFO 2025-05-19 20:32:39,467 basehttp 74444 135195638363840 "GET /game/2/setup/ HTTP/1.1" 200 7870
+INFO 2025-05-19 20:32:39,498 basehttp 74444 135195638363840 "GET /static/css/game.css HTTP/1.1" 304 0
+INFO 2025-05-19 20:32:39,499 basehttp 74444 135195629971136 "GET /static/css/cards.css HTTP/1.1" 304 0

@@ -1,0 +1,94 @@
+{% extends 'game/base.html' %}
+
+{% block title %}Select Character - Alice is Missing{% endblock %}
+
+{% block header_title %}Character Selection{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <h2 class="text-center mb-4">Select Your Character</h2>
+            
+            <div class="alert alert-info mb-4">
+                <p class="mb-0">Choose a character name and color that you'll use throughout the game.</p>
+                <small>Your character should be someone who knew Alice well and cares about finding her.</small>
+            </div>
+            
+            <form method="post" class="mb-4">
+                {% csrf_token %}
+                
+                <div class="mb-3">
+                    <label for="character_name" class="form-label">Character Name</label>
+                    <input type="text" name="character_name" class="form-control" id="character_name" 
+                           placeholder="Enter your character's name" required>
+                    <div class="form-text">Choose a name for your character who's searching for Alice.</div>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="form-label">Choose Your Color</label>
+                    <div class="row row-cols-2 g-2">
+                        {% for color_code, color_name in player.PLAYER_COLORS %}
+                            {% if color_code in available_colors %}
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="color" 
+                                           id="color_{{ color_code }}" value="{{ color_code }}" required>
+                                    <label class="form-check-label {{ color_code }}" for="color_{{ color_code }}">
+                                        {{ color_name }}
+                                    </label>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="color" 
+                                           id="color_{{ color_code }}" value="{{ color_code }}" disabled>
+                                    <label class="form-check-label text-muted" for="color_{{ color_code }}">
+                                        {{ color_name }} (Taken)
+                                    </label>
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Relationship to Alice</label>
+                    <select class="form-select" id="relationship" name="relationship">
+                        <option value="friend">Friend</option>
+                        <option value="family">Family Member</option>
+                        <option value="classmate">Classmate</option>
+                        <option value="teammate">Teammate</option>
+                        <option value="coworker">Co-worker</option>
+                        <option value="neighbor">Neighbor</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <div class="form-text">How does your character know Alice?</div>
+                </div>
+                
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">Confirm Character</button>
+                    <a href="{% url 'game_setup' game.id %}" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+            </form>
+            
+            <div class="card mb-4">
+                <div class="card-header">Character Tips</div>
+                <div class="card-body">
+                    <p>Choose a character that:</p>
+                    <ul>
+                        <li>Has a strong connection to Alice</li>
+                        <li>Has a reason to be deeply involved in the search</li>
+                        <li>Might have information or theories about her disappearance</li>
+                        <li>Has meaningful relationships with other characters</li>
+                    </ul>
+                    <p class="mb-0 text-muted">Your character is a local teenager from the town of Silent Falls.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

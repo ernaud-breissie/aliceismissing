@@ -1,0 +1,20 @@
+[project]
+name = "aliceismissing"
+version = "0.1.0"
+description = "Alice is Missing Game"
+authors = [
+    {name = "bussiere"}
+]
+readme = "README.md"
+requires-python = "^3.10"
+dependencies = [
+    "django (>=5.2.1,<6.0.0)",
+    "pillow (==10.0.0)",
+    "gunicorn (==21.2.0)",
+    "python-dotenv (>=1.1.0,<2.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
