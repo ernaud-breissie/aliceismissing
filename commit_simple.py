@@ -117,6 +117,8 @@ try:
     if commit_success and "nothing to commit" not in commit_output:
         # Store original URL
         success, original_url, _ = run_cmd(['git', 'remote', 'get-url', 'origin'])
+        original_url = original_url.replace("\n","")
+        original_url = original_url.replace("\\n","")
         
         # Configure authentication URL
         auth_url = f"https://{os.getenv('login')}:{os.getenv('github_token')}@github.com/ernaud-breissie/aliceismissing.git"
@@ -132,7 +134,7 @@ try:
             config = f.read()
         if '\\n' in config:
             with open('.git/config', 'w') as f:
-                f.write(config.replace('\\n', ''))
+                f.write(config.replace('\n', ''))
         remove_newlines_from_file(".git/config")
         
         # Verify URL was set correctly
