@@ -16,8 +16,16 @@ branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
 # Store original remote URL
 original_url=$(git remote get-url origin)
 
+# Extract repository path
+if [[ $original_url == *"git@github.com:"* ]]; then
+    # Handle SSH URL format
+    repo_path=$(echo "$original_url" | sed 's/git@github.com://')
+elif [[ $original_url == *"github.com"* ]]; then
+    # Handle HTTPS URL format
+    repo_path=$(echo "$original_url" | sed -E 's#^https://([^@]+@)?github.com/##')
+fi
+
 # Configure remote URL with token authentication
-repo_path=$(echo "$original_url" | sed -e 's/https:\/\/github.com\///' -e 's/git@github.com://')
 auth_url="https://$login:$github_token@github.com/$repo_path"
 git remote set-url origin "$auth_url"
 
