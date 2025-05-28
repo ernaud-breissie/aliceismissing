@@ -96,10 +96,27 @@ def backup_git_config():
 
 def restore_git_config(backup_path):
     """Restore git config from backup."""
-    if os.path.exists(backup_path):
-        shutil.copy2(backup_path, '.git/config')
-        os.remove(backup_path)
-        print("✅ Configuration Git restaurée")
+    config = f"""[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	url = {original_url}
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "main"]
+	remote = origin
+	merge = refs/heads/main
+[user]
+	name = {os.getenv('user_temp')}
+	email = {os.getenv('email_temp')}
+"""
+    # Backup and update config
+    with open('.git/config', 'w') as f:
+        f.write(config)
+        # restore the origin user and email
+        run_cmd(['git', 'config', '--local', 'user.name', os.getenv('user_normal')], check=True)
+        run_cmd(['git', 'config', '--local', 'user.email', os.getenv('email_normal')], check=True)
 
 def check_env_variables():
     """Check if all required environment variables are set."""
@@ -245,10 +262,11 @@ try:
         
         # Restore original URL
         run_cmd(['git', 'remote', 'set-url', 'origin', original_url])
+
         if success:
             print("\n✅ Changements commités et pushés avec succès")
-    else:
-        print("\nℹ️  Aucun changement à commiter")
+        else:
+            print("\nℹ️  Aucun changement à commiter")
 
     # Restore git configuration
     restore_git_config(backup_path)
