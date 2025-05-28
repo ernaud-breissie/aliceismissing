@@ -192,9 +192,39 @@ try:
     with open('.git/config', 'w') as f:
         f.write(config)
 
-        # Try to pull, ignore if branch doesn't exist
+    # Try to pull, ignore if branch doesn't exist
     print(f"\n⬇️  Mise à jour depuis la branche {branch}...")
-    run_cmd(['git', 'pull', 'origin', branch])
+    try:
+        # Utiliser pty pour le pull comme pour le push
+        def read_and_log(fd, log_path):
+            with open(log_path, 'a') as logf:
+                while True:
+                    try:
+                        output = os.read(fd, 1024)
+                        if not output:
+                            break
+                        decoded = output.decode(errors='replace')
+                        print(decoded, end='')
+                        logf.write(decoded)
+                        logf.flush()
+                    except OSError:
+                        break
+        
+        pid, fd = pty.fork()
+        if pid == 0:
+            # Enfant : exécute la commande
+            os.execvp('git', ['git', 'pull', 'origin', branch])
+        else:
+            # Parent : lit la sortie et log
+            read_and_log(fd, 'last_push_output.txt')
+            _, status = os.waitpid(pid, 0)
+            success = os.WIFEXITED(status) and os.WEXITSTATUS(status) == 0
+        
+        if not success:
+            print("\n⚠️  Le pull a échoué, mais on continue...")
+    except Exception as e:
+        print(f"\n⚠️  Erreur lors du pull: {str(e)}")
+        print("On continue malgré l'erreur...")
 
     # Add all changes
     print("\n➕ Ajout des modifications...")
