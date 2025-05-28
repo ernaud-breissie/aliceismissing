@@ -109,9 +109,6 @@ try:
             if push_out:
                 print("Push output:")
                 print(push_out)
-        
-        # Restore original URL
-        run_cmd(['git', 'remote', 'set-url', 'origin', original_url])
         if success:
             print("Changes committed and pushed successfully")
     else:
