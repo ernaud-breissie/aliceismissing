@@ -25,7 +25,7 @@ def create_superuser():
         
         # Create new superuser
         User.objects.create_superuser(
-            username='bussiere',
+            username='admin',
             email='',
             password='admin'
         )

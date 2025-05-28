@@ -3,7 +3,7 @@ name = "aliceismissing"
 version = "0.1.0"
 description = "Alice is Missing Game"
 authors = [
-    {name = "bussiere"}
+    {name = "author"}
 ]
 readme = "README.md"
 requires-python = "^3.10"
