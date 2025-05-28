@@ -100,14 +100,39 @@ def restore_git_config(backup_path):
         os.remove(backup_path)
         print("✅ Configuration Git restaurée")
 
+def check_env_variables():
+    """Check if all required environment variables are set."""
+    required_vars = ['user_temp', 'email_temp', 'url_git_projet', 'github_token']
+    missing_vars = []
+    
+    for var in required_vars:
+        if not os.getenv(var):
+            missing_vars.append(var)
+    
+    if missing_vars:
+        print("\n❌ Erreur: Variables d'environnement manquantes dans le fichier .env")
+        print("   Variables manquantes:")
+        for var in missing_vars:
+            print(f"   - {var}")
+        print("\n🔍 Actions recommandées:")
+        print("   1. Vérifiez que le fichier .env existe")
+        print("   2. Ajoutez les variables manquantes dans le fichier .env")
+        print("   3. Relancez le script")
+        return False
+    return True
+
 # Load environment variables
 load_dotenv()
 
 try:
+    # Vérifier les variables d'environnement requises
+    if not check_env_variables():
+        exit(1)
+
     print("\n🔧 Configuration initiale...")
-    # Configure git with user from .env
-    run_cmd(['git', 'config', '--local', 'user.name', os.getenv('user')], check=True)
-    run_cmd(['git', 'config', '--local', 'user.email', os.getenv('email')], check=True)
+    # Configure git with user_temp from .env
+    run_cmd(['git', 'config', '--local', 'user.name', os.getenv('user_temp')], check=True)
+    run_cmd(['git', 'config', '--local', 'user.email', os.getenv('email_temp')], check=True)
 
     # Save requirements with sensitive data masked
     print("\n📦 Sauvegarde des dépendances...")
@@ -143,8 +168,8 @@ try:
 	remote = origin
 	merge = refs/heads/main
 [user]
-	name = {os.getenv('user')}
-	email = {os.getenv('email')}
+	name = {os.getenv('user_temp')}
+	email = {os.getenv('email_temp')}
 """
     # Backup and update config
     backup_path = backup_git_config()
