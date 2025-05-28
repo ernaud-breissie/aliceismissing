@@ -5,6 +5,16 @@ import subprocess
 from datetime import datetime
 from dotenv import load_dotenv
 
+def clean_url(url):
+    """Clean URL from any special characters and validate it."""
+    # Remove any whitespace, newlines, or carriage returns
+    cleaned = url.strip()
+    cleaned = ''.join(c for c in cleaned if c.isprintable() and c != '\n' and c != '\r')
+    # Validate URL format
+    if not cleaned.startswith('https://'):
+        raise ValueError("Invalid URL format")
+    return cleaned
+
 def run_cmd(cmd, check=False):
     """Run a command and return (success, stdout, stderr)."""
     try:
@@ -52,11 +62,18 @@ try:
         
         # Configure authentication URL
         auth_url = f"https://{os.getenv('login')}:{os.getenv('github_token')}@github.com/ernaud-breissie/aliceismissing.git"
-        # Clean any possible newline variants from the URL
-        auth_url = auth_url.strip().replace('\n', '').replace('\\n', '').replace('\r', '')
+        # Clean and validate URL
+        auth_url = clean_url(auth_url)
         masked_url = auth_url.replace(os.getenv('github_token'), '****')
         print(f"Setting up authenticated URL: {masked_url}")
         run_cmd(['git', 'remote', 'set-url', 'origin', auth_url])
+        
+        # Directly clean .git/config file if needed
+        with open('.git/config', 'r') as f:
+            config = f.read()
+        if '\\n' in config:
+            with open('.git/config', 'w') as f:
+                f.write(config.replace('\\n', ''))
         
         # Verify URL was set correctly
         success, current_url, _ = run_cmd(['git', 'remote', 'get-url', 'origin'])
