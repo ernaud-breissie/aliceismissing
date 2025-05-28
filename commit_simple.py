@@ -74,6 +74,7 @@ try:
     if commit_success and "nothing to commit" not in commit_output:
         # Store original URL
         success, original_url, _ = run_cmd(['git', 'remote', 'get-url', 'origin'])
+        original_url = os.getenv("original_url")
 
         masked_url = auth_url.replace(os.getenv('github_token'), '****')
         print(f"Setting up authenticated URL: {masked_url}")
