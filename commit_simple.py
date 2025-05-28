@@ -15,6 +15,48 @@ def mask_sensitive_data(content):
     content = re.sub(r'[a-zA-Z0-9]{40}', '****', content)
     return content
 
+def handle_git_error(error_msg):
+    """Handle Git specific errors and return appropriate message."""
+    if "GH013" in error_msg or "Repository rule violations" in error_msg:
+        print("\n❌ Erreur: Violation des règles du dépôt GitHub")
+        print("   - Des informations sensibles ont été détectées")
+        print("   - GitHub a bloqué le push pour des raisons de sécurité")
+        print("\n🔍 Actions recommandées:")
+        print("   1. Annuler le dernier commit:")
+        print("      git reset --hard HEAD~1")
+        print("   2. Vérifier les fichiers pour des tokens ou secrets")
+        print("   3. Relancer le script")
+        return True
+    elif "Authentication failed" in error_msg or "fatal: Authentication failed" in error_msg:
+        print("\n❌ Erreur d'authentification Git:")
+        print("   - Vérifiez votre token GitHub")
+        print("   - Assurez-vous que le token a les bonnes permissions")
+        print("   - Vérifiez que l'URL du dépôt est correcte")
+        return True
+    elif "fatal: not a git repository" in error_msg:
+        print("\n❌ Erreur: Ce répertoire n'est pas un dépôt Git")
+        return True
+    elif "fatal: remote origin already exists" in error_msg:
+        print("\n❌ Erreur: La remote 'origin' existe déjà")
+        return True
+    elif "fatal: refusing to merge unrelated histories" in error_msg:
+        print("\n❌ Erreur: Les historiques sont incompatibles")
+        print("   Utilisez --allow-unrelated-histories pour forcer la fusion")
+        return True
+    elif "fatal: unable to access" in error_msg:
+        print("\n❌ Erreur d'accès au dépôt:")
+        print("   - Vérifiez votre connexion internet")
+        print("   - Vérifiez les permissions du dépôt")
+        print("   - Vérifiez l'URL du dépôt")
+        return True
+    elif "remote rejected" in error_msg:
+        print("\n❌ Erreur: Push rejeté par le dépôt distant")
+        print("   - Vérifiez les permissions de la branche")
+        print("   - Vérifiez les règles de protection du dépôt")
+        print("   - Vérifiez les messages d'erreur ci-dessus")
+        return True
+    return False
+
 def run_cmd(cmd, check=False):
     """Run a command and return (success, stdout, stderr)."""
     try:
@@ -28,30 +70,15 @@ def run_cmd(cmd, check=False):
     except subprocess.CalledProcessError as e:
         error_msg = e.stderr.strip()
         
-        # Détection des erreurs d'authentification
-        if "Authentication failed" in error_msg or "fatal: Authentication failed" in error_msg:
-            print("\n❌ Erreur d'authentification Git:")
-            print("   - Vérifiez votre token GitHub")
-            print("   - Assurez-vous que le token a les bonnes permissions")
-            print("   - Vérifiez que l'URL du dépôt est correcte")
-        elif "fatal: not a git repository" in error_msg:
-            print("\n❌ Erreur: Ce répertoire n'est pas un dépôt Git")
-        elif "fatal: remote origin already exists" in error_msg:
-            print("\n❌ Erreur: La remote 'origin' existe déjà")
-        elif "fatal: refusing to merge unrelated histories" in error_msg:
-            print("\n❌ Erreur: Les historiques sont incompatibles")
-            print("   Utilisez --allow-unrelated-histories pour forcer la fusion")
-        elif "fatal: unable to access" in error_msg:
-            print("\n❌ Erreur d'accès au dépôt:")
-            print("   - Vérifiez votre connexion internet")
-            print("   - Vérifiez les permissions du dépôt")
-            print("   - Vérifiez l'URL du dépôt")
-        elif "GH013" in error_msg or "Repository rule violations" in error_msg:
-            print("\n❌ Erreur: Violation des règles du dépôt")
-            print("   - Des informations sensibles ont été détectées")
-            print("   - Vérifiez que vous n'avez pas commité de tokens ou de secrets")
-            print("   - Supprimez les fichiers contenant des informations sensibles")
+        # Gestion des erreurs Git spécifiques
+        if handle_git_error(error_msg):
+            if check:
+                print(f"\nCommande échouée: {' '.join(cmd)}")
+                print(f"Message d'erreur: {error_msg}")
+                raise
+            return False, e.stdout, error_msg
         
+        # Erreur générique
         if check:
             print(f"\nCommande échouée: {' '.join(cmd)}")
             print(f"Message d'erreur: {error_msg}")
@@ -155,9 +182,16 @@ try:
             
             if not success:
                 print("\n❌ Échec du push - Vérifiez les messages d'erreur ci-dessus")
-                print("   Si vous voyez des erreurs concernant des secrets ou tokens,")
-                print("   utilisez 'git reset --hard HEAD~1' pour annuler le dernier commit")
-                print("   puis relancez le script")
+                if "GH013" in push_process.stderr or "Repository rule violations" in push_process.stderr:
+                    print("\n🔍 Actions recommandées pour résoudre l'erreur GH013:")
+                    print("   1. Annuler le dernier commit:")
+                    print("      git reset --hard HEAD~1")
+                    print("   2. Vérifier les fichiers pour des tokens ou secrets")
+                    print("   3. Relancer le script")
+                else:
+                    print("   Si vous voyez des erreurs concernant des secrets ou tokens,")
+                    print("   utilisez 'git reset --hard HEAD~1' pour annuler le dernier commit")
+                    print("   puis relancez le script")
             else:
                 print("✅ Push réussi")
         except Exception as e:
