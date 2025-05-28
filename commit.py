@@ -65,33 +65,69 @@ def restore_git_config(user_normal, email_normal):
     run_command(f'git config --local user.name "{user_normal}"', "Failed to restore git user.name")
     run_command(f'git config --local user.email "{email_normal}"', "Failed to restore git user.email")
 
+def extract_repo_path(url):
+    """Extract repository path from GitHub URL."""
+    print(f"DEBUG: Extracting repo path from URL: {url}")
+    
+    # Remove protocol and potential credentials
+    clean_url = url.replace("https://", "").replace("http://", "")
+    if "@" in clean_url:
+        clean_url = clean_url.split("@")[-1]
+    
+    # Handle SSH format
+    if url.startswith("git@github.com:"):
+        clean_url = clean_url.replace("git@github.com:", "")
+    
+    # Extract path after github.com
+    if "github.com/" in clean_url:
+        parts = clean_url.split("github.com/")
+        if len(parts) > 1:
+            path = parts[1]
+        else:
+            raise ValueError(f"Invalid GitHub URL format: {url}")
+    elif "github.com:" in clean_url:
+        parts = clean_url.split("github.com:")
+        if len(parts) > 1:
+            path = parts[1]
+        else:
+            raise ValueError(f"Invalid GitHub URL format: {url}")
+    else:
+        path = clean_url
+    
+    # Clean up the path
+    path = path.strip("/")
+    if not path.endswith(".git"):
+        path += ".git"
+    
+    print(f"DEBUG: Extracted repo path: {path}")
+    return path
+
 def get_remote_url(login, token):
-    """Get the remote URL with GitHub token authentication."""
+    """Get the remote URL with GitHub token authentication using OAuth2 format."""
+    print("DEBUG: Getting remote URL with token authentication")
 
     # Get the current remote URL
     remote_url = run_command(
         "git remote get-url origin",
         "Failed to get remote URL"
     )
+    print(f"DEBUG: Current remote URL: {remote_url}")
     
-    # Extract the repository path (owner/repo.git)
-    if remote_url.startswith("git@github.com:"):
-        # Handle SSH URL format
-        repo_path = remote_url.replace("git@github.com:", "")
-    else:
-        # Handle HTTPS URL format
-        repo_path = remote_url.replace("https://github.com/", "")
-        if "@" in repo_path:
-            # Remove any existing credentials
-            repo_path = repo_path.split("@github.com/")[1]
-    
-    # Ensure the URL ends with .git
-    if not repo_path.endswith(".git"):
-        repo_path += ".git"
-    
-    # Create new URL with token authentication
-    # Format: https://[token]@github.com/[owner]/[repo].git
-    return f"https://{token}@github.com/{repo_path}"
+    try:
+        # Extract the repository path
+        repo_path = extract_repo_path(remote_url)
+        
+        # Clean up the token by removing any github_pat_ prefix if present
+        clean_token = token.replace("github_pat_", "")
+        
+        # Create new URL with OAuth2 token authentication
+        auth_url = f"https://oauth2:{clean_token}@github.com/{repo_path}"
+        print(f"DEBUG: Created authenticated URL (token hidden)")
+        return auth_url
+        
+    except ValueError as e:
+        print(f"Error processing GitHub URL: {str(e)}")
+        sys.exit(1)
 
 def main():
     # Check if we're in a git repository
@@ -176,9 +212,14 @@ def main():
             push_command,
             "Failed to push changes"
         )
-
         # Reset remote URL to HTTPS without credentials
-        clean_url = remote_url.replace(f"{github_token}@", "")
+        print("DEBUG: Resetting remote URL to clean HTTPS URL")
+        # Extract repository path using the same function as before
+        repo_path = extract_repo_path(remote_url)
+        
+        # Create clean HTTPS URL
+        clean_url = f"https://github.com/{repo_path}"
+        print(f"DEBUG: Clean URL created: {clean_url}")
         run_command(
             f'git remote set-url origin "{clean_url}"',
             "Failed to reset remote URL"
