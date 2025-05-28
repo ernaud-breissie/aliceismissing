@@ -21,19 +21,29 @@ def branch_exists(branch):
 def get_repo_path():
     """Extract repository path (owner/repo) from current remote URL."""
     url = run_cmd("git remote get-url origin")
+    print(f"DEBUG: Original URL: {url}")
     
-    # Remove trailing slashes and .git
-    url = url.rstrip('/').rstrip('.git')
+    # Extract repo path using pattern matching
+    repo_path = ""
     
-    if url.startswith("git@github.com:"):
-        # Handle SSH format: git@github.com:owner/repo
-        parts = url.split('git@github.com:')[1]
-    else:
-        # Handle HTTPS format: https://github.com/owner/repo
-        parts = url.split('github.com/')[1]
+    # Try SSH format first
+    if "git@github.com:" in url:
+        repo_path = url.split("git@github.com:")[1]
+    # Then try HTTPS format
+    elif "github.com/" in url:
+        # Split on github.com/ and take the last part
+        repo_path = url.split("github.com/")[-1]
+        # Remove any credentials if present
+        if "@github.com/" in repo_path:
+            repo_path = repo_path.split("@github.com/")[-1]
     
-    # Return clean owner/repo format
-    return parts.strip('/')
+    # Clean up the path
+    repo_path = repo_path.strip('/')
+    if repo_path.endswith('.git'):
+        repo_path = repo_path[:-4]
+    
+    print(f"DEBUG: Extracted repo path: {repo_path}")
+    return repo_path
 
 def configure_github_url(token=True):
     """Configure remote URL with or without token."""
