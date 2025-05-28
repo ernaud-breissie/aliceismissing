@@ -74,23 +74,24 @@ def get_remote_url(login, token):
         "Failed to get remote URL"
     )
     
-    # Convert SSH URL to HTTPS if necessary
-    if remote_url.startswith("git@"):
-        remote_url = remote_url.replace(":", "/").replace("git@", "")
+    # Extract the repository path (owner/repo.git)
+    if remote_url.startswith("git@github.com:"):
+        # Handle SSH URL format
+        repo_path = remote_url.replace("git@github.com:", "")
+    else:
+        # Handle HTTPS URL format
+        repo_path = remote_url.replace("https://github.com/", "")
+        if "@" in repo_path:
+            # Remove any existing credentials
+            repo_path = repo_path.split("@github.com/")[1]
     
-    # Remove existing credentials if present
-    if "@" in remote_url:
-        remote_url = remote_url.split("@")[1]
-    
-    # Remove 'https://' if present
-    remote_url = remote_url.replace("https://", "")
-    
-    # URL encode the token
-    encoded_token = quote(token, safe='')
+    # Ensure the URL ends with .git
+    if not repo_path.endswith(".git"):
+        repo_path += ".git"
     
     # Create new URL with token authentication
     # Format: https://[token]@github.com/[owner]/[repo].git
-    return f"https://{encoded_token}@{remote_url}"
+    return f"https://{token}@github.com/{repo_path}"
 
 def main():
     # Check if we're in a git repository
