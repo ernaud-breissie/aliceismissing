@@ -103,7 +103,7 @@ def extract_repo_path(url):
     return path
 
 def get_remote_url(login, token):
-    """Get the remote URL with GitHub token authentication using OAuth2 format."""
+    """Get the remote URL with GitHub token authentication using username:token format."""
     print("DEBUG: Getting remote URL with token authentication")
 
     # Get the current remote URL
@@ -117,12 +117,9 @@ def get_remote_url(login, token):
         # Extract the repository path
         repo_path = extract_repo_path(remote_url)
         
-        # Clean up the token by removing any github_pat_ prefix if present
-        clean_token = token.replace("github_pat_", "")
-        
-        # Create new URL with OAuth2 token authentication
-        auth_url = f"https://oauth2:{clean_token}@github.com/{repo_path}"
-        print(f"DEBUG: Created authenticated URL (token hidden)")
+        # Create new URL with username:token authentication format
+        auth_url = f"https://{login}:{token}@github.com/{repo_path}"
+        print(f"DEBUG: Created authenticated URL (credentials hidden)")
         return auth_url
         
     except ValueError as e:
