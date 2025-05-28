@@ -191,6 +191,9 @@ try:
     backup_path = backup_git_config()
     with open('.git/config', 'w') as f:
         f.write(config)
+    
+    # set git config pull.rebase false
+    run_cmd(['git', 'config', '--global', 'pull.rebase', 'false'], check=True)
 
     # Try to pull, ignore if branch doesn't exist
     print(f"\n⬇️  Mise à jour depuis la branche {branch}...")
