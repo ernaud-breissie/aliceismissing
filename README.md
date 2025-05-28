@@ -438,8 +438,9 @@ For issues or questions:
 3. Contact system administrator
 
 ## License
-[Specify your license here]
+
+This project is licensed under the Apache License 2.0 - see the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0) for details.
 
 ## Contributors
-[List of contributors]
 
+- [ernaud-breissie](https://github.com/ernaud-breissie)
