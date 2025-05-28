@@ -3,6 +3,10 @@
 	filemode = true
 	bare = true
 [remote "origin"]
+<<<<<<< HEAD
 	url = ../../
+=======
+	url = /home/bussiere/Workspace/CustomDocGame/aliceismissing/./
+>>>>>>> 0386fd96ee89ed412e7f49644eda8960debc584e
 	fetch = +refs/*:refs/*
 	mirror = true
