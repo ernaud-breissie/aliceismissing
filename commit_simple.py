@@ -284,7 +284,7 @@ try:
             pid, fd = pty.fork()
             if pid == 0:
                 # Enfant : exécute la commande
-                os.execvp('git', ['git', 'push', '--set-upstream', 'origin', branch])
+                os.execvp('git', ['git', 'push', '-f','--set-upstream', 'origin', branch])
             else:
                 # Parent : lit la sortie et log
                 read_and_log(fd, 'last_push_output.txt')
