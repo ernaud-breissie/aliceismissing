@@ -207,7 +207,8 @@ try:
             
             if not success:
                 print("\n❌ Échec du push - Vérifiez les messages d'erreur ci-dessus")
-                if "GH013" in push_process.stderr or "Repository rule violations" in push_process.stderr:
+                stderr = getattr(push_process, 'stderr', None)
+                if stderr and ("GH013" in stderr or "Repository rule violations" in stderr):
                     print("\n🔍 Actions recommandées pour résoudre l'erreur GH013:")
                     print("   1. Annuler le dernier commit:")
                     print("      git reset --hard HEAD~1")
