@@ -65,8 +65,8 @@ def restore_git_config(user_normal, email_normal):
     run_command(f'git config --local user.name "{user_normal}"', "Failed to restore git user.name")
     run_command(f'git config --local user.email "{email_normal}"', "Failed to restore git user.email")
 
-def get_remote_url(login, password):
-    """Get the remote URL with credentials."""
+def get_remote_url(login, token):
+    """Get the remote URL with GitHub token authentication."""
 
     # Get the current remote URL
     remote_url = run_command(
@@ -85,12 +85,12 @@ def get_remote_url(login, password):
     # Remove 'https://' if present
     remote_url = remote_url.replace("https://", "")
     
-    # URL encode the password to handle special characters
-    encoded_password = quote(password, safe='')
+    # URL encode the token and login
+    encoded_token = quote(token, safe='')
     encoded_login = quote(login, safe='')
     
-    # Create new URL with encoded credentials
-    return f"https://{encoded_login}:{encoded_password}@{remote_url}"
+    # Create new URL with token authentication
+    return f"https://{encoded_login}:{encoded_token}@{remote_url}"
 
 def main():
     # Check if we're in a git repository
@@ -102,10 +102,9 @@ def main():
     if not load_dotenv():
         print("Error: .env file not found")
         sys.exit(1)
-
     # Get all required variables from environment
     login = os.getenv("login")
-    password = os.getenv("passwd")
+    github_token = os.getenv("github_token")
     git_user = os.getenv("user")
     git_email = os.getenv("email")
     user_normal = os.getenv("user_normal")
@@ -114,7 +113,7 @@ def main():
     # Validate environment variables
     required_vars = {
         'login': login,
-        'passwd': password,
+        'github_token': github_token,
         'user': git_user,
         'email': git_email,
         'user_normal': user_normal,
@@ -137,8 +136,8 @@ def main():
         # Get current branch
         branch = get_current_branch()
 
-        # Configure git credentials
-        remote_url = get_remote_url(login, password)
+        # Configure git credentials using GitHub token
+        remote_url = get_remote_url(login, github_token)
         run_command(
             f'git remote set-url origin "{remote_url}"',
             "Failed to set remote URL"
@@ -178,7 +177,7 @@ def main():
         )
 
         # Reset remote URL to HTTPS without credentials
-        clean_url = remote_url.replace(f"{login}:{password}@", "")
+        clean_url = remote_url.replace(f"{login}:{github_token}@", "")
         run_command(
             f'git remote set-url origin "{clean_url}"',
             "Failed to reset remote URL"
