@@ -40,23 +40,9 @@ try:
 
     # Add all changes
     run_cmd(['git', 'add', '.'], check=True)
-
-    # Create commit with timestamp
-    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    commit_success, commit_output, commit_error = run_cmd(['git', 'commit', '-m', f'wip {branch} Updated: {current_time}'])
-    print(f"Commit output: {commit_output or commit_error}")
-
-    # Push only if commit succeeded and there were changes
-    if commit_success and "nothing to commit" not in commit_output:
-        # Store original URL
-        success, original_url, _ = run_cmd(['git', 'remote', 'get-url', 'origin'])
-        auth_url = os.getenv("url_git_projet")
-        masked_url = auth_url.replace(os.getenv('github_token'), '****')
-        print(f"Setting up authenticated URL: {masked_url}")
-        run_cmd(['git', 'remote', 'set-url', 'origin', auth_url])
-
-        # Configuration git
-        config = f"""[core]
+    # Configuration git
+    auth_url = os.getenv("url_git_projet")
+    config = f"""[core]
 	repositoryformatversion = 0
 	filemode = true
 	bare = false
@@ -72,11 +58,27 @@ try:
 	email = {os.getenv('email')}
 """
         # Backup the current config
-        shutil.copy2('.git/config', '.git/config.bak')
+    shutil.copy2('.git/config', '.git/config.bak')
         
         # Write the new config
-        with open('.git/config', 'w') as f:
-            f.write(config)
+    with open('.git/config', 'w') as f:
+        f.write(config)
+
+
+    # Create commit with timestamp
+    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    commit_success, commit_output, commit_error = run_cmd(['git', 'commit', '-m', f'wip {branch} Updated: {current_time}'])
+    print(f"Commit output: {commit_output or commit_error}")
+
+    # Push only if commit succeeded and there were changes
+    if commit_success and "nothing to commit" not in commit_output:
+        # Store original URL
+        success, original_url, _ = run_cmd(['git', 'remote', 'get-url', 'origin'])
+
+        masked_url = auth_url.replace(os.getenv('github_token'), '****')
+        print(f"Setting up authenticated URL: {masked_url}")
+        run_cmd(['git', 'remote', 'set-url', 'origin', auth_url])
+
 
         # Verify URL was set correctly
         success, current_url, _ = run_cmd(['git', 'remote', 'get-url', 'origin'])
