@@ -200,25 +200,49 @@ try:
         # Push changes
         print(f"\n⬆️  Push vers la branche {branch}...")
         try:
-            # On exécute le push en capturant la sortie pour tout afficher
-            push_process = subprocess.run(
+            # On exécute le push en capturant la sortie en temps réel
+            process = subprocess.Popen(
                 ['git', 'push', '--set-upstream', 'origin', branch],
-                check=False, text=True, capture_output=True
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                bufsize=1,
+                universal_newlines=True
             )
-            success = push_process.returncode == 0
-
-            # Afficher toute la sortie du push
-            print("\n=== Sortie complète du push ===")
-            if push_process.stdout:
-                print(push_process.stdout)
-            if push_process.stderr:
-                print(push_process.stderr)
-            print("==============================\n")
-
+            
+            # Capture la sortie en temps réel
+            stdout_output = []
+            stderr_output = []
+            
+            # Lire stdout et stderr en temps réel
+            while True:
+                stdout_line = process.stdout.readline()
+                stderr_line = process.stderr.readline()
+                
+                if stdout_line:
+                    print(stdout_line, end='')
+                    stdout_output.append(stdout_line)
+                if stderr_line:
+                    print(stderr_line, end='')
+                    stderr_output.append(stderr_line)
+                
+                # Vérifier si le processus est terminé
+                if process.poll() is not None:
+                    # Lire les dernières lignes
+                    for line in process.stdout:
+                        print(line, end='')
+                        stdout_output.append(line)
+                    for line in process.stderr:
+                        print(line, end='')
+                        stderr_output.append(line)
+                    break
+            
+            success = process.returncode == 0
+            
             if not success:
                 print("\n❌ Échec du push - Vérifiez les messages d'erreur ci-dessus")
-                stderr = getattr(push_process, 'stderr', None)
-                if stderr and ("GH013" in stderr or "Repository rule violations" in stderr):
+                stderr = ''.join(stderr_output)
+                if "GH013" in stderr or "Repository rule violations" in stderr:
                     print("\n🔍 Actions recommandées pour résoudre l'erreur GH013:")
                     print("   1. Annuler le dernier commit:")
                     print("      git reset --hard HEAD~1")
