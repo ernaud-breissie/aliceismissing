@@ -102,7 +102,7 @@ def restore_git_config(backup_path):
 	bare = false
 	logallrefupdates = true
 [remote "origin"]
-	url = {original_url}
+	url = {os.getenv('original_url')}
 	fetch = +refs/heads/*:refs/remotes/origin/*
 [branch "main"]
 	remote = origin
@@ -115,8 +115,8 @@ def restore_git_config(backup_path):
     with open('.git/config', 'w') as f:
         f.write(config)
         # restore the origin user and email
-        run_cmd(['git', 'config', '--local', 'user.name', os.getenv('user_normal')], check=True)
-        run_cmd(['git', 'config', '--local', 'user.email', os.getenv('email_normal')], check=True)
+    run_cmd(['git', 'config', '--local', 'user.name', os.getenv('user_normal')], check=True)
+    run_cmd(['git', 'config', '--local', 'user.email', os.getenv('email_normal')], check=True)
 
 def check_env_variables():
     """Check if all required environment variables are set."""
