@@ -7,6 +7,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 import re
 import pty
+import time
 
 def mask_sensitive_data(content):
     """Mask sensitive data in content."""
@@ -199,7 +200,7 @@ try:
     print("\n➕ Ajout des modifications...")
     run_cmd(['git', 'add', '.'], check=True)
 
-
+    time.sleep(2)
     # Create commit with timestamp
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     print(f"\n💾 Création du commit...")
