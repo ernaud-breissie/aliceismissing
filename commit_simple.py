@@ -39,16 +39,18 @@ try:
 
     # Create commit with timestamp
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    run_cmd(['git', 'commit', '-m', f'wip {branch} Updated: {current_time}'], check=True)
+    commit_result = run_cmd(['git', 'commit', '-m', f'wip {branch} Updated: {current_time}'])
 
-    # Push changes
-    run_cmd(['git', 'push', '--set-upstream', 'origin', branch], check=True)
+    # Push only if there were changes to commit
+    if "nothing to commit" not in commit_result:
+        run_cmd(['git', 'push', '--set-upstream', 'origin', branch], check=True)
+        print("Changes committed and pushed successfully")
+    else:
+        print("No changes to commit")
 
     # Restore normal git configuration
     run_cmd(['git', 'config', '--local', 'user.name', os.getenv('user_normal')], check=True)
     run_cmd(['git', 'config', '--local', 'user.email', os.getenv('email_normal')], check=True)
-
-    print("Changes committed and pushed successfully")
 
 except Exception as e:
     print(f"Error: {str(e)}")
