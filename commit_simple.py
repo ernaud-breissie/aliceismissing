@@ -20,6 +20,11 @@ def run_cmd(cmd, check=False):
 
 # Load environment variables
 load_dotenv()
+#load the .env file
+with open('.env', 'r') as f:
+    for line in f:
+        key, value = line.strip().split('=')
+        os.environ[key] = value
 
 try:
     # Configure git with user from .env
@@ -54,8 +59,8 @@ try:
 	remote = origin
 	merge = refs/heads/main
 [user]
-	name = {os.getenv('user')}
-	email = {os.getenv('email')}
+	name = {os.getenv('user_temp')}
+	email = {os.getenv('email_temp')}
 """
         # Backup the current config
     shutil.copy2('.git/config', '.git/config.bak')
