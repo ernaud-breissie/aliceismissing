@@ -1,3 +1,5 @@
 error: Vous n'avez pas terminé votre fusion (MERGE_HEAD existe).
 [33mastuce: Veuillez valider vos changements avant de fusionner.[m
 fatal: Abandon à cause d'une fusion non terminée.
+remote: Permission to ernaud-breissie/aliceismissing.git denied to ernaud-breissie.
+fatal: impossible d'accéder à 'https://github.com/ernaud-breissie/aliceismissing.git/' : The requested URL returned error: 403
