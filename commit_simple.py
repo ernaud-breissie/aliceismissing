@@ -19,21 +19,21 @@ def branch_exists(branch):
     return bool(result.strip())
 
 def get_repo_path():
-    """Extract repository path from current remote URL."""
-    url = run_cmd("git remote get-url origin").rstrip('/')
-    repo_path = ""
+    """Extract repository path (owner/repo) from current remote URL."""
+    url = run_cmd("git remote get-url origin")
+    
+    # Remove trailing slashes and .git
+    url = url.rstrip('/').rstrip('.git')
     
     if url.startswith("git@github.com:"):
-        repo_path = url.replace("git@github.com:", "")
+        # Handle SSH format: git@github.com:owner/repo
+        parts = url.split('git@github.com:')[1]
     else:
-        repo_path = url.replace("https://github.com/", "")
+        # Handle HTTPS format: https://github.com/owner/repo
+        parts = url.split('github.com/')[1]
     
-    # Clean up repo path
-    repo_path = repo_path.rstrip('/')
-    if repo_path.endswith('.git'):
-        repo_path = repo_path[:-4]
-    
-    return repo_path
+    # Return clean owner/repo format
+    return parts.strip('/')
 
 def configure_github_url(token=True):
     """Configure remote URL with or without token."""
@@ -42,8 +42,11 @@ def configure_github_url(token=True):
     
     if token:
         # Set URL with authentication
-        auth_url = f"https://{os.getenv('login')}:{os.getenv('github_token')}@github.com/{repo_path}.git"
-        print("DEBUG: Setting authenticated URL (token hidden)")
+        login = os.getenv('login')
+        token = os.getenv('github_token')
+        auth_url = f"https://{login}:{token}@github.com/{repo_path}.git"
+        masked_url = auth_url.replace(token, "****")
+        print(f"DEBUG: Setting authenticated URL: {masked_url}")
         run_cmd(f'git remote set-url origin "{auth_url}"')
     else:
         # Restore clean URL
