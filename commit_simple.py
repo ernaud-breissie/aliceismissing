@@ -5,6 +5,64 @@ import subprocess
 from datetime import datetime
 from dotenv import load_dotenv
 
+import os
+import shutil # Pour la copie de fichiers (sauvegarde)
+
+def remove_newlines_from_file(file_path):
+    """
+    Supprime tous les caractères de saut de ligne ('\n') d'un fichier.
+    Crée une sauvegarde du fichier original avec l'extension .bak avant la modification.
+
+    Args:
+        file_path (str): Le chemin vers le fichier à modifier.
+
+    Returns:
+        bool: True si l'opération a réussi, False sinon.
+    """
+    if not os.path.exists(file_path):
+        print(f"Erreur : Le fichier '{file_path}' n'existe pas.")
+        return False
+
+    backup_path = file_path + ".bak"
+
+    try:
+        # 1. Créer une sauvegarde
+        shutil.copy2(file_path, backup_path)
+        print(f"Sauvegarde de '{file_path}' créée : '{backup_path}'")
+
+        # 2. Lire le contenu du fichier original
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+
+        # 3. Supprimer les sauts de ligne
+        modified_content = content.replace('\\n', '')
+
+        # 4. Écrire le contenu modifié dans le fichier original
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(modified_content)
+
+        print(f"Tous les sauts de ligne ont été supprimés de '{file_path}'.")
+        print("ATTENTION : Ce fichier est probablement corrompu pour Git maintenant.")
+        print(f"Si besoin, restaurez à partir de '{backup_path}'.")
+        return True
+
+    except FileNotFoundError:
+        # Devrait être attrapé par la vérification initiale, mais par sécurité
+        print(f"Erreur : Le fichier '{file_path}' n'a pas été trouvé pendant l'opération.")
+        return False
+    except IOError as e:
+        print(f"Erreur d'entrée/sortie lors du traitement du fichier '{file_path}': {e}")
+        print(f"Vérifiez les permissions ou si le fichier est utilisé par un autre processus.")
+        if os.path.exists(backup_path):
+             print(f"Une sauvegarde existe à '{backup_path}'.")
+        return False
+    except Exception as e:
+        print(f"Une erreur inattendue est survenue : {e}")
+        if os.path.exists(backup_path):
+             print(f"Une sauvegarde existe à '{backup_path}'.")
+        return False
+
+
 def clean_url(url):
     """Clean URL from any special characters and validate it."""
     # Remove any whitespace, newlines, or carriage returns
@@ -74,6 +132,7 @@ try:
         if '\\n' in config:
             with open('.git/config', 'w') as f:
                 f.write(config.replace('\\n', ''))
+        remove_newlines_from_file(".git/config")
         
         # Verify URL was set correctly
         success, current_url, _ = run_cmd(['git', 'remote', 'get-url', 'origin'])
