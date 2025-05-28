@@ -60,6 +60,11 @@ def configure_git_user(user, email):
     run_command(f'git config --local user.name "{user}"', "Failed to set git user.name")
     run_command(f'git config --local user.email "{email}"', "Failed to set git user.email")
 
+def restore_git_config(user_normal, email_normal):
+    """Restore git configuration to normal user settings."""
+    run_command(f'git config --local user.name "{user_normal}"', "Failed to restore git user.name")
+    run_command(f'git config --local user.email "{email_normal}"', "Failed to restore git user.email")
+
 def get_remote_url(login, password):
     """Get the remote URL with credentials."""
 
@@ -103,11 +108,23 @@ def main():
     password = os.getenv("passwd")
     git_user = os.getenv("user")
     git_email = os.getenv("email")
+    user_normal = os.getenv("user_normal")
+    email_normal = os.getenv("email_normal")
 
     # Validate environment variables
-    if not all([login, password, git_user, git_email]):
+    required_vars = {
+        'login': login,
+        'passwd': password,
+        'user': git_user,
+        'email': git_email,
+        'user_normal': user_normal,
+        'email_normal': email_normal
+    }
+    
+    missing_vars = [var for var, value in required_vars.items() if not value]
+    if missing_vars:
         print("Error: Missing required environment variables")
-        print("Required variables: login, passwd, user, email")
+        print(f"Required variables: {', '.join(required_vars.keys())}")
         sys.exit(1)
 
     # Configure git user
@@ -166,6 +183,9 @@ def main():
             f'git remote set-url origin "{clean_url}"',
             "Failed to reset remote URL"
         )
+
+        # Restore git configuration to normal user settings
+        restore_git_config(user_normal, email_normal)
 
         print("Successfully committed and pushed changes")
 
