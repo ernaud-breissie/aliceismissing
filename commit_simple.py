@@ -121,6 +121,7 @@ try:
         # Configure authentication URL
         auth_url = f"https://{os.getenv('login')}:{os.getenv('github_token')}@github.com/ernaud-breissie/aliceismissing.git"
         # Clean and validate URL
+        auth_url = auth_url.replace("\n","")
         auth_url = clean_url(auth_url)
         masked_url = auth_url.replace(os.getenv('github_token'), '****')
         print(f"Setting up authenticated URL: {masked_url}")
