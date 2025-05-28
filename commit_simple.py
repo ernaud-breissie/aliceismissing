@@ -75,6 +75,9 @@ try:
         # Write the new config
     with open('.git/config', 'w') as f:
         f.write(config)
+    #print the config
+    with open('.git/config', 'r') as f:
+        print(f.read())
 
 
     # Create commit with timestamp
