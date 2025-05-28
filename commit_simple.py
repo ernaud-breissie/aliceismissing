@@ -193,7 +193,15 @@ try:
         f.write(config)
     
     # set git config pull.rebase false
+    print("\n⚙️  Configuration de la stratégie de pull...")
     run_cmd(['git', 'config', '--global', 'pull.rebase', 'false'], check=True)
+    
+    # Vérifier que la configuration est bien appliquée
+    success, config_output, _ = run_cmd(['git', 'config', '--global', 'pull.rebase'])
+    if config_output.strip() != 'false':
+        print("❌ Erreur: La configuration pull.rebase n'a pas été correctement appliquée")
+        exit(1)
+    print("✅ Configuration pull.rebase = false appliquée")
 
     # Try to pull, ignore if branch doesn't exist
     print(f"\n⬇️  Mise à jour depuis la branche {branch}...")
