@@ -12,11 +12,32 @@ def run_cmd(cmd, check=False):
         result = subprocess.run(cmd, check=check, capture_output=True, text=True)
         return True, result.stdout, result.stderr
     except subprocess.CalledProcessError as e:
+        error_msg = e.stderr.strip()
+        
+        # Détection des erreurs d'authentification
+        if "Authentication failed" in error_msg or "fatal: Authentication failed" in error_msg:
+            print("\n❌ Erreur d'authentification Git:")
+            print("   - Vérifiez votre token GitHub")
+            print("   - Assurez-vous que le token a les bonnes permissions")
+            print("   - Vérifiez que l'URL du dépôt est correcte")
+        elif "fatal: not a git repository" in error_msg:
+            print("\n❌ Erreur: Ce répertoire n'est pas un dépôt Git")
+        elif "fatal: remote origin already exists" in error_msg:
+            print("\n❌ Erreur: La remote 'origin' existe déjà")
+        elif "fatal: refusing to merge unrelated histories" in error_msg:
+            print("\n❌ Erreur: Les historiques sont incompatibles")
+            print("   Utilisez --allow-unrelated-histories pour forcer la fusion")
+        elif "fatal: unable to access" in error_msg:
+            print("\n❌ Erreur d'accès au dépôt:")
+            print("   - Vérifiez votre connexion internet")
+            print("   - Vérifiez les permissions du dépôt")
+            print("   - Vérifiez l'URL du dépôt")
+        
         if check:
-            print(f"Command failed: {' '.join(cmd)}")
-            print(f"Error output: {e.stderr}")
+            print(f"\nCommande échouée: {' '.join(cmd)}")
+            print(f"Message d'erreur: {error_msg}")
             raise
-        return False, e.stdout, e.stderr
+        return False, e.stdout, error_msg
 
 # Load environment variables
 load_dotenv()
@@ -92,35 +113,37 @@ try:
         original_url = os.getenv("original_url")
 
         masked_url = auth_url.replace(os.getenv('github_token'), '****')
-        print(f"Setting up authenticated URL: {masked_url}")
+        print(f"\n🔧 Configuration de l'URL authentifiée: {masked_url}")
         run_cmd(['git', 'remote', 'set-url', 'origin', auth_url])
-
 
         # Verify URL was set correctly
         success, current_url, _ = run_cmd(['git', 'remote', 'get-url', 'origin'])
         masked_current = current_url.replace(os.getenv('github_token'), '****')
-        print(f"Current remote URL: {masked_current}")
+        print(f"URL actuelle du remote: {masked_current}")
         
         # Push changes
-        print(f"Pushing to branch {branch}...")
+        print(f"\n⬆️  Push vers la branche {branch}...")
         success, push_out, push_err = run_cmd(['git', 'push', '--set-upstream', 'origin', branch])
         if success:
-            print("Push successful")
+            print("✅ Push réussi")
         else:
-            print("Push failed with error:")
+            print("\n❌ Échec du push:")
             print(push_err)
             if push_out:
-                print("Push output:")
+                print("Sortie du push:")
                 print(push_out)
         if success:
-            print("Changes committed and pushed successfully")
+            print("\n✅ Changements commités et pushés avec succès")
     else:
-        print("No changes to commit")
+        print("\nℹ️  Aucun changement à commiter")
 
     # Restore normal git configuration
-    run_cmd(['git', 'config', '--local', 'user.name', os.getenv('user_normal')], check=True)
-    run_cmd(['git', 'config', '--local', 'user.email', os.getenv('email_normal')], check=True)
+    run_cmd(['git', 'config', '--global', 'user.name', os.getenv('user_normal')], check=True)
+    run_cmd(['git', 'config', '--global', 'user.email', os.getenv('email_normal')], check=True)
 
 except Exception as e:
-    print(f"Error: {str(e)}")
+    print(f"\n❌ Erreur critique: {str(e)}")
+    print("Stack trace:")
+    import traceback
+    traceback.print_exc()
     exit(1)
